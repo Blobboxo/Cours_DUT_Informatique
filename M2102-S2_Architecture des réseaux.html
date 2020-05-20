@@ -49,12 +49,37 @@
 
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
+						<div class="inner" align="justify">
 							<h1>Architecture des réseaux</h1>
-							<span class="image main"><img src="images/Croquis_Graphes.png" alt="" /></span>
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux.png" alt="" /></span>
 							<p><h2>Définitions et concepts de base : (numéros associés aux figures) </h2><p>
-							<b>1. Graphe orienté</b> : Les sommets sont reliés par des arcs ("flèches").</br>
-							<b>2. Graphe non orienté</b> : Les sommets sont reliés par des arrêtes.</br>
+							<b>1. Commutation Ethernet</b> : Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
+							<ul>
+								<li><u>SW1 :</u> </br> 
+								- Port 1 : Inscrit l'adresse MAC de A, soit @MAC_A. </br> 
+							    - Port 2 : Inscrit l'adresse MAC de toutes les stations et serveurs situé(e)s de ce côté (cf. le noeud d'un arbre a plusieurs branches connectées), soit @MAC_S et @MAC_C. </br> 
+								- Port 3 : Inscrit l'adresse MAC de B, soit @MAC_B. </br> 
+							    </li>
+								<li><u>SW2 :</u> </br> 
+								- Port 1 : Inscrit l'adresse MAC de toutes les stations situées de ce côté, soit @MAC_A et @MAC_B. </br> 
+							    - Port 2 : Inscrit l'adresse MAC de S, @MAC_S. </br> 
+								- Port 3 : Inscrit l'adresse MAC de C, soit @MAC_C. </br> 
+								</li>
+							</ul>
+
+							<b>2. Masques de sous-réseaux</b> : Soit l'adresse IP 192.168.0.0 (classe C). Le masque réseau correspondant sera 255.255.255.0. Pour calculer le nombre
+							d'adresses possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
+							==> Ici ce sera 2^8-2^1 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diposibles pour les adresses machines. </br> 
+							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui est reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
+							- L'adresse en binaire se décompose ainsi : </br>
+							[ 1 , 1  ][  0,    0,   0,   0,   0,   0] </br>
+							soit : </br>
+							[2^7, 2^6][2^5, 2^40, 2^3, 2^2, 2^1, 2^0] </br>
+							==>[1,1]=2^7+2^6=192 : C'est l'adresse CIDR, soit le nombre d'adresses IPv4 disponibles pour les hôtes du réseau. </br>
+							- On pourra déployer jusqu'à <u>quatre</u> sous-réseaux, car pour 2 emplacements de valeurs possibles ([1,1]) il y a 2^2=<u>4</u> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). </br>
+							- Masque :  </br>
+
+							</br>  </br> 
 							<b>3.</b> </br> 
 							- <b> Degré sortant d'un sommet </b> : Nombres d'arcs dirigés hors du sommet désigné (<u>ex:</u> d+(1) = 2 en rouge et bleu). <u>N.B.:</u> Arc bleu = sortant ET entrant.</br>
 							- <b> Degré entrant d'un sommet </b> : Nombres d'arcs dirigés vers le sommet désigné (<u>ex:</u> d-(1) = 1 en vert).</br>
