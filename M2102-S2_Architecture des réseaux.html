@@ -67,26 +67,174 @@
 								</li>
 							</ul>
 
-							<b>2. Masques de sous-réseaux</b> : Soit l'adresse IP 192.168.0.0 (classe C). Le masque réseau correspondant sera 255.255.255.0. Pour calculer le nombre
-							d'adresses possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
-							==> Ici ce sera 2^8-2^1 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diposibles pour les adresses machines. </br> 
-							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui est reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
-							- L'adresse en binaire se décompose ainsi : </br>
+							<b>2. Masques de sous-réseaux</b> : Soit l'adresse IP 192.168.0.0 (classe C). Une adresse IP est codée sur quatre octets, chacun codé sur 0-255. Le masque réseau correspondant à cette classe est 255.255.255.0. Pour calculer le nombre d'adresses locales possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 2^1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
+							==> Ici ce sera 2^8-2^1=254 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diposibles pour les adresses machines. </br> 
+							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
+							<ul>
+								<li><u>Adresse en binaire :</u> </br> Elle se décompose ainsi (8 chiffres car adresse codé sur 8 bits, et deux "1" car deux des octets sont = à 0) : </br>
 							[ 1 , 1  ][  0,    0,   0,   0,   0,   0] </br>
 							soit : </br>
-							[2^7, 2^6][2^5, 2^40, 2^3, 2^2, 2^1, 2^0] </br>
+							[2^8, 2^7][2^6, 2^5, 2^4, 2^3, 2^2, 2^1] </br>
 							==>[1,1]=2^7+2^6=192 : C'est l'adresse CIDR, soit le nombre d'adresses IPv4 disponibles pour les hôtes du réseau. </br>
-							- On pourra déployer jusqu'à <u>quatre</u> sous-réseaux, car pour 2 emplacements de valeurs possibles ([1,1]) il y a 2^2=<u>4</u> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). </br>
-							- Masque :  </br>
+									</br>
+									</li>
+								<li><u>Masque :</u> L'adresse IP est de classe C. On sait que le masque réseau de cette classe est  255.255.255.0. Il y aura donc un octet 
+						    (partiellement) disponible dont il faudra remplacer la valeur par 192 (nombres adresses IPv4 disponibles) pour connaître la valeur du masque de <strong>cette</strong> adresse IP (et non pas de sa classe), soit : 255.255.255.192. Parmi les quatre octets, les trois premiers (bits de machine) sont remplis (255) de 8 bits chacun (un octet = 8 bits), tandis que le dernier (bit de sous-réseau) a 2 bits sur 8  disponibles. Pourquoi 2 bits ?  
+							Commme expliqué au point "adresse en binaire", parmi les 8 bits, deux d'entre eux sont libres, codés à 1.</br>
+										</br>
+										</li>
+							<li><u>Sous-réseaux :</u> On pourra en déployer jusqu'à <strong>quatre</strong>, car pour 2 emplacements de valeurs possibles ([1,1]) il y a 2^2=<strong>4</strong> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). Ils se décomposent ainsi : </br> </br>
 
-							</br>  </br> 
-							<b>3.</b> </br> 
-							- <b> Degré sortant d'un sommet </b> : Nombres d'arcs dirigés hors du sommet désigné (<u>ex:</u> d+(1) = 2 en rouge et bleu). <u>N.B.:</u> Arc bleu = sortant ET entrant.</br>
-							- <b> Degré entrant d'un sommet </b> : Nombres d'arcs dirigés vers le sommet désigné (<u>ex:</u> d-(1) = 1 en vert).</br>
-							- <b> Degré d'un sommet </b> : Somme degrés sortants et entrants (<u>ex:</u> =  d+(1) +  d-(1) = 2 + 1 = 3).</br>
-							- <b> Taille d'un graphe </b> : Nombre d'arcs (<u>ex:</u> m = 4).</br>
-							- <b> Ordre d'un graphe </b> : Nombre de sommets (<u>ex:</u> n = 3).</br>
-							- <b> Liste d'adjacence </b> : Tableau à deux colonnes qui présente chaque sommet et ses successeurs correspondants. L'arc "rentrant" d'un sommet est le successeur du sommet dont il provient et d'où il "sort"  (<u>ex:</u> 3 est le successeur de 2). Les successeurs sont rangés dans l'ordre croissant des numéros.</br>
+								</li>
+							</ul>
+
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Sous-réseau</th>
+													<th>Bornes <strong>*</strong></th>
+													<th>Masque</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>0,0 : /<b></td>
+													<td><b>.1 -> .62 broadcast 63<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>0,1 : 64<b></td>
+													<td><b>.65 -> .126 broadcast 127<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>1,0 : 128<b></td>
+													<td><b>.129 -> .190 broadcast 191<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>1,1 : 192<b></td>
+													<td><b>.193 -> .254 broadcast 255<b></td>
+													<td><b>/26<b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+							<strong>*</strong> Plages d'adresses machines qui servent à adresser les sous-réseaux
+							</br>
+							</br>
+
+							</br> <b>Adressage IP</b> :  </br></br>  
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Adresse IP Hôte</th>
+													<th>Classe d'adresse</th>
+													<th><font color="red"> Adresse Réseau </font></th>
+													<th><font color="red"> Adresse Broadcast Réseau</font></th>
+													<th><font color="red"> Masque de sous-réseau</font></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>216.14.55.137<b></td>
+													<td><b>C (publique)<b></td>
+													<td><b>216.14.55.<font color="red">0</font><b></td>
+													<td><b>216.14.55.<font color="red">255</font><b></td>
+													<td><b>255.255.255.<font color="red">0</font><b></td>
+												</tr>
+												<tr>
+													<td><b>123.1.1.15<b></td>
+													<td><b>A (publique)<b></td>
+													<td><b>123.<font color="red">0.0.0</font><b></td>
+													<td><b>123.<font color="red">255.255.255</font><b></td>
+													<td><b>255.<font color="red">0.0.0</font><b></td>
+												</tr>
+												<tr>
+													<td><b>175.12.239.244<b></td>
+													<td><b>B (publique)<b></td>
+													<td><b>175.12.<font color="red">0.0</font><b></td>
+													<td><b>175.12.<font color="red">255.255</font><b></td>
+													<td><b>255.255.<font color="red">0.0</font><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+							<ul>
+								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
+								- Adresse Réseau : Croiser adresse IP Hôte et Masque de sous-réseau de la classe correspondante. Les "0" du masque remplacent alors les chiffres de l'adresse IP Hôte. </br> 
+							    - Adresse Broadcast Réseau : Les 0 sont remplacés par des 255. </br> 
+								- Masque de sous-réseau : Inverser le 255->0 et les autres chiffres en 255. </br> 
+							    </li>
+							</ul>
+
+							</br>  
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Masque de sous-réseau (classe C)</th>
+													<th>Nombre de sous-réseaux</th>
+													<th>Nombre de machines</font></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>255.255.255.0 (/26)<b></td>
+													<td><b>1 (2^0=1)<b></td>
+													<td><b>2^8-2=254</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.128 (/25)<b></td>
+													<td><b>2(0 ou 1) (2^1=2)<b></td>
+													<td><b>2^7-2=128</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.192 (/26)<b></td>
+													<td><b>4 (2^2=4)<b></td>
+													<td><b>2^6-2=62</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.224 (/27)<b></td>
+													<td><b>8 (2^3=8)<b></td>
+													<td><b>2^5-2=30</font><b></td>
+												</tr>
+												</tr>
+												<tr>
+													<td><b>255.255.255.240 (/?)<b></td>
+													<td><b>16 (2^4=16)<b></td>
+													<td><b>2^4-2=14</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.248 (/?)<b></td>
+													<td><b>32 (2^5=32)<b></td>
+													<td><b>2^3-2=6</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.252 (/?)<b></td>
+													<td><b>64 (2^6=64)<b></td>
+													<td><b>2^2-2=2</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.254 (/?)<b></td>
+													<td><b>128 (2^7=128)<b></td>
+													<td><b>2^1-2=0</font><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+							<ul>
+								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
+								- Masque de sous-réseau : D'après la formule du nombre de machines : 0 bits sont utilisés puis il reste 7 bits soit 2^7=128...
+								puis 2^6=64 et donc 128+64=192, puis 2^5=32 et donc 192+32=224... </br> 
+							    - Nombre de sous-réseaux : 0 bits sont utilisés donc 2^0, puis 1 bit est utilisé donc 2^1=2... </br> 
+								- Nombre de machines : Utilise la formule 2^n-2^1 avec n=8 bits disponibles, puis 7 bits disponibles pour 1 bit utilisé... </br>
+							    </li>
+							</ul>
 
 							<div class="table-wrapper">
 										<table class="alt">
