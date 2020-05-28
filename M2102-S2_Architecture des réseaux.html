@@ -53,7 +53,9 @@
 							<h1>Architecture des réseaux</h1>
 							<span class="image main"><img src="images/Croquis_ArchitectureReseaux.png" alt="" /></span>
 							<p><h2>Définitions et concepts de base : (numéros associés aux figures) </h2><p>
-							<b>1. Commutation Ethernet</b> : Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
+
+
+							</br><b>1. Commutation Ethernet</b> : Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
 							<ul>
 								<li><u>SW1 :</u> </br> 
 								- Port 1 : Inscrit l'adresse MAC de A, soit @MAC_A. </br> 
@@ -67,23 +69,70 @@
 								</li>
 							</ul>
 
-							<b>2. Masques de sous-réseaux</b> : Soit l'adresse IP 192.168.0.0 (classe C). Une adresse IP est codée sur quatre octets, chacun codé sur 0-255. Le masque réseau correspondant à cette classe est 255.255.255.0. Pour calculer le nombre d'adresses locales possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 2^1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
-							==> Ici ce sera 2^8-2^1=254 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diposibles pour les adresses machines. </br> 
+
+							<b>2. Masques de sous-réseaux</b> :  </br>
+							</br><div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Classe d'adresse IP</th>
+													<th>Champs de valeurs publiques</th>
+													<th>Champs de valeurs privées</th>
+													<th>Masque de sous-réseau par défaut</th>
+													<th>Notation CIDR (<strong>*</strong>)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>Classe A<b></td>
+													<td><b>1.X.X.X -> .126.X.X.X</font><b></td>
+													<td><b>10.0.0.0 -> 10.255.255.255<b></td>
+													<td><b>255.0.0.0<b></td>
+													<td><b>/8<b></td>
+
+												</tr>
+												<tr>
+													<td><b>Classe B<b></td>
+													<td><b>128.X.X.X -> 191.X.X.X</font><b></td>
+													<td><b>172.16.0.0 -> 172.31.255.255<b></td>
+													<td><b>255.255.0.0<b></td>
+													<td><b>/16<b></td>
+
+												</tr>
+												<tr>
+													<td><b>Classe C<b></td>
+													<td><b>192.X.X.X -> 223.X.X.X<b></td>
+													<td><b>192.168.0.0 -> 192.168.255.255<b></td>
+													<td><b>255.255.255.0<b></td>
+													<td><b>/24<b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<strong>*</strong> Nombre adresses IPv4 disponibles pour les hôtes du réseau.
+									</br>
+									</br>
+									</br>
+
+
+							 Soit l'adresse IP 192.168.0.0 (classe C). Une adresse IP est codée sur quatre octets, chacun codé de 0 à 255. Pour calculer le nombre d'adresses locales possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 2^1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
+							==> Ici ce sera 2^8-2^1=254 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diponibles pour les adresses machines. </br> 
 							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
 							<ul>
-								<li><u>Adresse en binaire :</u> </br> Elle se décompose ainsi (8 chiffres car adresse codé sur 8 bits, et deux "1" car deux des octets sont = à 0) : </br>
+								<li><u>Adresse en binaire :</u> </br> Elle se décompose ainsi sur le <strong>premier</strong> octet (voir pour le détail : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.1</a>) : </br>
 							[ 1 , 1  ][  0,    0,   0,   0,   0,   0] </br>
 							soit : </br>
 							[2^8, 2^7][2^6, 2^5, 2^4, 2^3, 2^2, 2^1] </br>
-							==>[1,1]=2^7+2^6=192 : C'est l'adresse CIDR, soit le nombre d'adresses IPv4 disponibles pour les hôtes du réseau. </br>
+							==>[1,1]=2^7+2^6=192 : C'est la partie adresse machine de l'adresse IP. Cette valeur remplacera le "0" du masque de sous-réseau par défaut. </br>
 									</br>
+
 									</li>
 								<li><u>Masque :</u> L'adresse IP est de classe C. On sait que le masque réseau de cette classe est  255.255.255.0. Il y aura donc un octet 
-						    (partiellement) disponible dont il faudra remplacer la valeur par 192 (nombres adresses IPv4 disponibles) pour connaître la valeur du masque de <strong>cette</strong> adresse IP (et non pas de sa classe), soit : 255.255.255.192. Parmi les quatre octets, les trois premiers (bits de machine) sont remplis (255) de 8 bits chacun (un octet = 8 bits), tandis que le dernier (bit de sous-réseau) a 2 bits sur 8  disponibles. Pourquoi 2 bits ?  
-							Commme expliqué au point "adresse en binaire", parmi les 8 bits, deux d'entre eux sont libres, codés à 1.</br>
+						  	(partiellement) disponible dont il faudra remplacer la valeur par 192 (valeur octet adressage machine) pour connaître la valeur du masque de <strong>cette</strong> adresse IP (et non pas de sa classe), soit : 255.255.255.192. Parmi les quatre octets, les trois premiers (bits de machine) sont remplis (255) de 8 bits chacun (un octet = 8 bits), tandis que le dernier (bit de sous-réseau) a 2 bits sur 8  disponibles. Pourquoi 2 bits ?  Pour la valeur 192, il faut en écriture binaire mettre un 1 à 128 et à 164. Le numéro du masque (/26) se trouve en comptant le nombre de 1 (bits significatifs) en écriture binaire de l'adresse 255.255.255.192, tel que 255=8 bits (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.2</a>), d'où 8*3=24 bits + 2 bits (192=2 bits en écriture binaire) (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.3</a>).</br>
 										</br>
+
 										</li>
-							<li><u>Sous-réseaux :</u> On pourra en déployer jusqu'à <strong>quatre</strong>, car pour 2 emplacements de valeurs possibles ([1,1]) il y a 2^2=<strong>4</strong> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). Ils se décomposent ainsi : </br> </br>
+							<li><u>Sous-réseaux :</u> On pourra en déployer jusqu'à <strong>quatre</strong>, car pour 2 emplacements de valeurs possibles  ([1,1]) sur la partie adressage machine il y a 2^2=<strong>4</strong> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). Ils se décomposent ainsi : </br> </br> 
 
 								</li>
 							</ul>
@@ -99,22 +148,22 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td><b>0,0 : /<b></td>
+													<td><b>[ 0 , 0 ] : /<b></td>
 													<td><b>.1 -> .62 broadcast 63<b></td>
 													<td><b>/26<b></td>
 												</tr>
 												<tr>
-													<td><b>0,1 : 64<b></td>
+													<td><b>[ 0 , 1 ] : 64<b></td>
 													<td><b>.65 -> .126 broadcast 127<b></td>
 													<td><b>/26<b></td>
 												</tr>
 												<tr>
-													<td><b>1,0 : 128<b></td>
+													<td><b>[ 1 , 0 ] : 128<b></td>
 													<td><b>.129 -> .190 broadcast 191<b></td>
 													<td><b>/26<b></td>
 												</tr>
 												<tr>
-													<td><b>1,1 : 192<b></td>
+													<td><b>[ 1 , 1 ] : 192<b></td>
 													<td><b>.193 -> .254 broadcast 255<b></td>
 													<td><b>/26<b></td>
 												</tr>
@@ -178,12 +227,12 @@
 												<tr>
 													<th>Masque de sous-réseau (classe C)</th>
 													<th>Nombre de sous-réseaux</th>
-													<th>Nombre de machines</font></th>
+													<th>Nombre de machines (ou d'hôtes)</font></th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><b>255.255.255.0 (/26)<b></td>
+													<td><b>255.255.255.0 (/24)<b></td>
 													<td><b>1 (2^0=1)<b></td>
 													<td><b>2^8-2=254</font><b></td>
 												</tr>
@@ -204,22 +253,22 @@
 												</tr>
 												</tr>
 												<tr>
-													<td><b>255.255.255.240 (/?)<b></td>
+													<td><b>255.255.255.240 (/28)<b></td>
 													<td><b>16 (2^4=16)<b></td>
 													<td><b>2^4-2=14</font><b></td>
 												</tr>
 												<tr>
-													<td><b>255.255.255.248 (/?)<b></td>
+													<td><b>255.255.255.248 (/29)<b></td>
 													<td><b>32 (2^5=32)<b></td>
 													<td><b>2^3-2=6</font><b></td>
 												</tr>
 												<tr>
-													<td><b>255.255.255.252 (/?)<b></td>
+													<td><b>255.255.255.252 (/30)<b></td>
 													<td><b>64 (2^6=64)<b></td>
 													<td><b>2^2-2=2</font><b></td>
 												</tr>
 												<tr>
-													<td><b>255.255.255.254 (/?)<b></td>
+													<td><b>255.255.255.254 (/31)<b></td>
 													<td><b>128 (2^7=128)<b></td>
 													<td><b>2^1-2=0</font><b></td>
 												</tr>
@@ -232,14 +281,29 @@
 								- Masque de sous-réseau : D'après la formule du nombre de machines : 0 bits sont utilisés puis il reste 7 bits soit 2^7=128...
 								puis 2^6=64 et donc 128+64=192, puis 2^5=32 et donc 192+32=224... </br> 
 							    - Nombre de sous-réseaux : 0 bits sont utilisés donc 2^0, puis 1 bit est utilisé donc 2^1=2... </br> 
-								- Nombre de machines : Utilise la formule 2^n-2^1 avec n=8 bits disponibles, puis 7 bits disponibles pour 1 bit utilisé... </br>
+								- Nombre de machines : Utilise la formule 2^(32-n)-2^1 avec n=CIDR=/24=nombre bits significatifs soit 2^(32-24)-2=2^8-2=254 (plus simplement 8 bits disponibles sur l'octet d'adressage machine), puis 7 bits disponibles pour 1 bit utilisé... </br>
 							    </li>
 							</ul>
 
 						</br> <b>Routage IP</b> :  </br></br>  
 
 							Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
-							Tableur établi à partir du site internet : <a href="https://www.supinfo.com/articles/single/5665-adresses-ip-masques-reseau-ipv4">SupInfo : Adresses IP et masques de sous-réseau en IPV4</a> </br></br> 
+							Tableur établi à partir de cette page Web : <a href="https://www.supinfo.com/articles/single/5665-adresses-ip-masques-reseau-ipv4">Adresses IP et masques de sous-réseau en IPV4</a> </br></br> 
+
+
+
+							</br></br>
+							<b> Sitographie utile : </b>
+							</br></br>
+							- <a href="https://www.supinfo.com/articles/single/4843-adresses-ip-privees-publiques#idm44858298738896">Les Adresses IP privées et publiques</a> </br> 
+							- <a href="https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP/Adressage_IP_v4">Réseaux TCP/IP/Adressage IP v4</a> </br> 
+							- <a href="https://www.frameip.com/masques-de-sous-reseau/">Masque de sous-réseau IP</a> </br> 
+							- <a href="https://www.faidherbe.org/tutoriel/ip.htm">Protocole  I.P. : réseaux et sous-réseaux  (locaux)</a> </br> 
+							- <a href="https://www.frameip.com/entete-ethernet/">Entête Ethernet</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/le-datagramme-ip/">Datagramme IP</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/ladressage-ip/">Adressage IP</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/le-routage/">Routage</a> </br> 
+							
 							</div>
 							</div>
 						
@@ -250,7 +314,7 @@
 								<h2 class="major">Contact</h2>
 								<p>Vous pouvez me contacter à l'adresse e-mail suivante : </p>
 								<ul style="list-style: none;">
-								<li class="icon solid fa-envelope"><a>zannialexandre245@gmail.com</a></li>
+								<li class="icon solid fa-envelope"><a>&nbsp;&nbsp;zannialexandre245@gmail.com</a></li>
 							</ul>
 							</section>
 							<ul class="copyright">
