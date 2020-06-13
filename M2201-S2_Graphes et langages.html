@@ -61,7 +61,7 @@
 							- <b> Degré d'un sommet </b> : Somme degrés sortants et entrants (<u>ex:</u> =  d+(1) +  d-(1) = 2 + 1 = 3).</br>
 							- <b> Taille d'un graphe </b> : Nombre d'arcs (<u>ex:</u> m = 4).</br>
 							- <b> Ordre d'un graphe </b> : Nombre de sommets (<u>ex:</u> n = 3).</br>
-							- <b> Liste d'adjacence </b> : Tableau à deux colonnes qui présente chaque sommet et ses successeurs correspondants. L'arc "rentrant" d'un sommet est le successeur du sommet dont il provient et d'où il "sort"  (<u>ex:</u> 3 est le successeur de 2). Les successeurs sont rangés dans l'ordre croissant des numéros.</br>
+							- <b> Liste d'adjacence </b> : Tableau à deux colonnes qui présente chaque sommet et ses successeurs correspondants. L'arc "rentrant" d'un sommet est le successeur du sommet dont il provient et d'où il "sort"  (<u>ex:</u> 3 est le successeur de 2). Les successeurs sont rangés dans l'ordre croissant des numéros :</br>
 
 							<div class="table-wrapper">
 										<table class="alt">
@@ -88,9 +88,73 @@
 										</table>
 									</div>
 
-							- <b> Matrice d'adjacence </b> : La matrice "M" est établie à partir de la liste d'adjacence. Étant une matrice, chaque case peut être associée à un numéro avec dans l'axe "x" le numéro du successeur correspondant et dans l'axe "y" le numéro du sommet correspondant. Il y a autant de sommets que de successeur en x et en y, il s'agit d'une matrice carrée. Plus simplement, si on a 3 sommets, comme ici, on aura 3 lignes pour 3 colonnes. Les numéros entourés qui figurent sur le schéma ci-dessous ne sont présents qu'à titre indicatif, pour aider à la lecture, en reprenant la numérotation de l'axe des "x" et des "y". De même que pour les flèches qui figurent ces axes. Ces éléments présents à titre indicatif sont en rouge. </br>
+							<b> 4. Matrice d'adjacence </b> : La matrice "M" est établie à partir de la liste d'adjacence du graphe n°3. Étant une matrice, chaque case peut être associée à un numéro avec dans l'axe "x" le numéro du successeur correspondant et dans l'axe "y" le numéro du sommet correspondant. Il y a autant de sommets que de successeur en x et en y, il s'agit d'une matrice carrée. Plus simplement, si on a 3 sommets, comme ici, on aura 3 lignes pour 3 colonnes. Les numéros entourés qui figurent sur le schéma ci-dessous ne sont présents qu'à titre indicatif, pour aider à la lecture, en reprenant la numérotation de l'axe des "x" et des "y". De même que pour les flèches qui figurent ces axes. Ces éléments présents à titre indicatif sont en rouge. </br>
 							</br>
+						
+							<b> 5. Etablir LS (Liste des Successeurs) et TS (Têtes des Successeurs) </b> : </br> 
+							- <u> Etape 1 :</u> Liste d'adjacence : déjà faite avant le 4. </br>
+							- <u> Etape 2 :</u> Etablir couples de A (ensemble des arcs de G)  en ayant préalablement numéroté en indice chaque relation sur le graphe (cf. figure n°5) et éventuellement sur la liste d'adjacence, en partant de 0. </br></br>
+							<b> <font color="red"> A = { ( 1,<font color="green">1</font> ) ; ( 1,<font color="green">2</font> ) ; ( 2,<font color="green">1</font> ) ; ( 2,<font color="green">3</font> ) } </font> </b></br>
+
 							</br>
+
+							- <u> Etape 3 :</u> Etablir tableaux de LS et TS à partir de A :  </br>
+							<u><b>LS :</b></u> Chaque case est remplie avec le successeur de chacun des couples sommet-successeur établis avec A. les cases sont numérotées en indice de la même façon que pour A. Il y a autant de cases que de relations. </br>
+							Taille = m = nombre de couples / cases + 1 (+ 1 car on commence à 0).</br>
+							<u><b>TS :</b></u> Numéroter chaque case en indice en commençant par 1 : il doit y avoir n (sommets) + 1 cases. Chaque case se voit attribuer des n° qui sont relatifs à ceux donnés en indice de LS (position) : le n° affecté correspond à la 1ère position du successeur du sommet correspondant. </br> </br> 
+							<b><font color="red">/!\</font></b> Si il n'y a pas de successeurs pour un sommet : le n° correspondant est celui du couple du sommet/case suivant(e). La dernière case ne correspond à aucun sommet : le n° correspondant à la case est égal à m. </br> </br> 
+							Explication : Le sommet 1 a pour 1er successeur lui même, qui est en position 0. Le sommet 2 a pour 1er successeur le sommet 1, qui est ici en position 2. Le sommet 3 n'a pas de successeur, qui prend donc le n° de la case suivante, qui est la dernière. </br>
+							Le n° de la dernière case est égal à m = nombres cases (LS) + 1 = 4 + 1 = 5 </br></br>
+							
+							</br>
+
+								<b> LS : Liste des Successeurs </b></br> 
+								<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>0</th>
+													<th>1</th>
+													<th>2</th>
+													<th>3</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b><center> <font color="green"> 1 </font> </center><b></td>
+													<td><b><center> <font color="green"> 2 </font> </center><b></td>
+													<td><b><center> <font color="green"> 1 </font> </center><b></td>
+													<td><b><center> <font color="green"> 3 </font> </center><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+
+									<b> TS : Têtes des Successeurs </b></br> 
+								<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>1</th>
+													<th>2</th>
+													<th>3</th>
+													<th>4</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b><center> 0 </center><b></td>
+													<td><b><center> 2 </center><b></td>
+													<td><b><center> 5 </center><b></td>
+													<td><b><center> 5 </center><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+
+									</br></br>
 						
 						</div>
 						<div class="inner">
