@@ -151,10 +151,51 @@
 												</tr>
 											</tbody>
 										</table>
-									</div>
+									</div></br>
 
 
-									</br></br>
+									<b> 6. Calculer le produit (réel ou booléen) d'une matrice carrée </b> : </br></br>
+									- <u> Produit matriciel réel (M²=M*M=M.M) :</u> Il faut faire l'addition terme à terme en x (ligne) pour A et y (colonne) pour B. Dans le cas présent. Pour calculer la case en xC3,yC3 (en jaune) de la matrice C, il faudrait faire : </br>
+									(xA1*yB1) + (xA2*yB2) + (xA3*yB3)</br>
+									(1*1) + (1*1) + (1*1)</br>
+									= 1+1+1</br>
+									= 3</br></br>
+
+									<b><font color="red">/!\</font></b> Le résultat de la matrice réelle n'est pas représenté ici.</br>
+
+
+									 
+
+									</br>
+
+									- <u> Produit matriciel booléen (M xor M) :</u> Il donne le résultat d'une matrice d'adjacence. Il peut être obtenu de deux façons. Soit le produit matriciel réel a été préalablement calculé, et dans ce cas, toutes les valeurs > 1 seront égales à 1 (par exemple pour xC3/yC3, 3 devient 1). Ou alors on pourra appliquer la méthode suivante :</br></br>
+									La matrice C représente le résulat du produit matriciel booléen des matrices A et B. Le produit booléen se calcule avec les mêmes opérations que pour le produit réel, si ce n'est que les "+" sont remplacés par des "OU" et les "*" par des "ET". Ensuite, ce sont les règles de logique qui sont appliquées, qui sont rappelées ici :</br></br>
+									0 OU 0 : 0 </br>
+									0 OU 1 : 1 </br>
+									1 OU 0 : 1 </br>
+									1 OU 1 : 1 </br></br>
+
+									0 ET 0 : 0 </br>
+									0 ET 1 : 0 </br>
+									1 ET 0 : 0 </br>
+									1 ET 1 : 1 </br></br>
+
+									Par exemple, pour calculer la case xC3,yC3 (jaune), on fera :</br>
+									(xA1 ET yB1) OU (xA2 ET yB2) OU (xA3 ET yB3)</br>
+									(1 ET 1) OU (1 ET 1) OU (1 ET 1)</br>
+									= 1 OU 1 OU 1</br>
+									= 1</br></br>
+
+									<b><font color="red">/!\</font></b> On pourra retenir que le résultat d'une case de la matrice booléenne fera 1 dès lors que l'un des termes résultant de la conjonction de ET (séparés par des OU) fera 1.</br></br></br>
+
+
+									<b> 7. Calculer la matrice d'adjacence de la fermeture transitive d'un graphe via l'algorithme de Warshall </b> : </br></br>
+									- <u> Etape 1 (C0) :</u> Metttre en évidence la première ligne et la première colonne de la matrice considérée. Mettre des 1 aux cases là où les lignes et les colonnes de la première ligne/colonne ont des 1 qui se croisent. De façon plus claire, pour une case donnée hors des couples de la première ligne/colonne : il faudra voir si il existe à la fois en x et y un 1 au regard du couple première ligne/colonne.</br>
+									- <u> Etape 2 (C1) :</u> On procède de la même façon avec les couples de la deuxième ligne/deuxième colonne.</br>
+									- <u> Etape 3 (Cn) :</u> Faire de même jusqu'à arriver à la dernière ligne et colonne du graphe. </br>
+									- <u> Etape 4 :</u> Ajouter les nouvelles relations au graphe qui pourra été modifié grâce aux 1 (successeurs de sommets) issus de cet algorithme. </br></br>
+
+									<b> 8. La matrice résultante montre les nouvelles relations qui sont en rouge après application de l'algorithme de Warshall en 7.</b></br></br>
 						
 						</div>
 						<div class="inner">
