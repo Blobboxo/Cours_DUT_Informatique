@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/index.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/index_first_year.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M1101-S1_Introduction%20aux%20SI%20-%20Pratique.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M1105-S1_Initiation%20%C3%A0%20la%20programmation%20Web.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2104-S2_Bases%20de%20la%20conception%20orient%C3%A9e%20objet.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2102-S2_Architecture%20des%20r%C3%A9seaux.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2105-S2_Introduction%20aux%20IHMs.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2106-S2_Administration%20et%20programmation%20des%20bases%20de%20donn%C3%A9es.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2201-S2_Graphes%20et%20langages.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blobboxo.github.io/Cours_DUT_Informatique/M2203-S2_Environnement%20comptable,%20financier,%20juridique.html</loc>
+  <lastmod>2020-08-11T22:01:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
