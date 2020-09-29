@@ -68,6 +68,85 @@
 							- <a href="https://www.supinfo.com/cours/1ORC/chapitres/08-privileges-utilisateurs">Privilèges et utilisateurs</a> </br>
 							 </br> </br>
 
+
+							 <b> [MS ACCESS] Étapes de création de formulaire et connexion événementielle (boutons) à l'aide des librairies DAO et ADO : </b>
+							</br></br>
+
+							</br><b>Étape 1 :</b> <i>"Placer un formulaire vide".</i> Onglet « Créer » / « Création de formulaire » </br></br>
+							<span class="image main"><img src="images/Image1_Admin et Prog Base Données.jpg" alt="" /></span>
+
+							</br><b>Étape 2 :</b> <i>"Modifier les options de création".</i> Aller dans la feuille de propriétés du formulaire créé et choisir les options suivantes dans l’onglet « Format » : </br>
+							• Style bordure : Aucun </br>
+							• Afficher sélecteur : Non </br>
+							• Barre défilement:Aucune </br></br>
+
+							<span class="image main"><img src="images/Image2_Admin et Prog Base Données.jpg" alt="" /></span>
+
+							</br><b>Étape 3 :</b> <i>"Créer les boutons du formulaire".</i> [Mode création sur le formulaire] Onglet « Création » / Créer un « Bouton » et le placer à l’endroit voulu / Cliquer sur « Annuler ». </br></br>
+							Remarque : Pour donner un nom au label du bouton, il faut double-cliquer dessus en mode création pour le formulaire (ex : Lecture). Pour modifier la légende d’un bouton, il faut aller dans l’onglet « Autres » puis modifier le champs « Nom » dans la « Feuille de propriétés » du bouton correspondant.</br></br>
+
+							<span class="image main"><img src="images/Image3_Admin et Prog Base Données.jpg" alt="" /></span>
+
+							</br><b>Étape 4 :</b> <i>"Création code VBA pour chaque procédure événementielle assignée à un bouton".</i> [Mode création sur le formulaire] Cliquer sur un bouton / Cliquer sur « Événements » dans la « Feuille de Propriétés » / Cliquer sur « ... » à droite du type d’évènement voulu (clic, double-clic…) et choisir dans la fenêtre « Générateur de code l’option : « Générateur de code ». Une fois que la nouvelle fenêtre s’ouvre, saisir le code correspondant. </br></br>
+							Remarque : À chaque fois qu’une procédure événementielle (macro) est créée ou modifiée, il faut sauvegarder son nom pour l’exécuter. </br></br>
+
+							<span class="image main"><img src="images/Image4_Admin et Prog Base Données.jpg" alt="" /></span>
+
+							</br><b> [MS ACCESS] Création de procédures évenementielles avec la librairie DAO : </b></br>
+
+							</br>• Activer les librairies suivantes :  Activer les librairies suivantes pour l’IDE (Outils / Références) : « Visual Basic For Applications » ; « Microsoft Access 15.0 Object Library » et « Microsoft Office 15.0 Access database engine Object Library ».</br>
+							• Copier-coller et compléter le modèle de code VBA ci-dessous pour chaque procédure évènementielle (TypeDeClic à renommer).</br></br>
+
+							<b><font color="green">'1. Déclencheur de l'évènement</font></br></b>	
+							Private Sub Cmd_<b><i>TypeDeClic</i></b>_Click( )</br></br>
+
+							<b><font color="green">'2. Déclencheur des variables</font></br></b>
+							<b>'Déclencher le type des données</br></b>	
+							Dim <i>nom_BaseDonnees</i> As DAO.Database</br>	
+							Dim <i>nomTable</i> As DAO.Database</br>
+							Dim <i>VARIABLE1, VARIABLE2</i> As <i>TypeDeDonnée</i></br></br>	
+
+							<b><font color="green">'3. Initialisation</font></br></b>
+							Set <i>nom_BaseDonnees</i> = CurrentDb( )</br></br>
+
+							<b><font color="green">'Recueille les données des tuples</font></br></b>
+							Set <i>nomTable</i> = <i>nom_BaseDonnees</i>.OpenRecordset("PROCEDURE_SQL", <i>dbOpenDynaset)</i></br></br>
+
+							<b><font color="green">'Procédure</font></br></b>
+							[...]</br></br>
+
+							End Sub</br></br></br>
+
+							<b> [MS ACCESS] Création de procédures évenementielles avec la librairie ADO : </b></br>
+
+							</br>• [Mode création sur le formulaire] Pour créer une zone de texte, cliquer sur le deuxième icône nommé « ZoneTexte ». </br>
+							• Activer la librairie adob à l’IDE : Outils / Références : cocher « Microsoft Active X Data Objects 6.1 Library ». Copier-coller et compléter le modèle de code VBA ci-dessous pour chaque procédure évènementielle (TypeDeClic à renommer), en affectant à la déclaration « (Général) » les cinq lignes suivantes.</br></br>
+							Remarque : Les trois dernières de ces lignes permettent de déclarer les variables globales. « Form_Load » permet d’initialiser ces variables globales au chargement du formulaire.</br></br>
+
+							<b>Option Compare Database</br></b>	
+							<b>Option Explicit</br></b>	
+							<font color="red">Dim rs As New ADODB.Recordset</font></br>
+							<font color="red">Dim cmd As New ADODB.Command</font></br>
+							<font color="red">Dim cn As New ADODB.Connection</font></br>
+							____________________________________</br></br>
+
+							Private Sub Cmd_<b><i>TypeDeClic</i></b>_Click( )</br>
+							[...]</br></br>
+							End Sub</br>
+							____________________________________</br></br>
+
+							Private Sub <b>Form_Close( )</b></br>
+							[...]</br></br>
+							End Sub</br>
+							____________________________________</br></br>
+
+							Private Sub <b>Form_Load( )</b></br>
+							Set cn = CurrentProject.Connection</br>
+							Set rs = cn.Execute("<i>Nom_Requête_Concernée</i>")</br>
+							rs.MoveFirst</br>
+							ZoneTexte.Value = [...]</br></br>
+							End Sub</br>
+
 						</div>
 					</div>
 
