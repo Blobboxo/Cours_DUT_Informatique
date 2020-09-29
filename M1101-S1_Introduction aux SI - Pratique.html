@@ -63,6 +63,143 @@
 							- <a href="https://bash.cyberciti.biz/guide/Pass_arguments_into_a_function ">Passage d'arguments avec une fonction Bash</a> </br>
 							 </br> </br>
 
+
+							 		<b> Commandes basiques : </b></br>
+
+							</br><div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Commande</th>
+													<th>Signification</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>pwd</td>
+													<td>Print Working Directory = Afficher chemin répertoire de travail (=répertoire courant, celui où l’on se trouve)</font></td>
+												</tr>
+												<tr>
+													<td>[commmande] --help</td>
+													<td>Affiche l’aide de la commande correspondante (ex : pwd –help) (moins détaillé que man [commande])</font></td>
+												</tr>
+												<tr>
+													<td>man [commmande]</td>
+													<td>Affiche la page du manuel correspondant à la commande spécifiée (appuyer sur q pour quitter)</font></td>
+												</tr>
+												<tr>
+													<td>ls [repertoire] [option]</td>
+													<td>Liste le contenu d’un répertoire, y compris les fichiers ET dossiers cachés</font></td>
+												</tr>
+												<tr>
+													<td>ls ..</td>
+													<td>Liste le contenu du dossier PARENT</font></td>
+												</tr>
+												<tr>
+													<td>ls -l</td>
+													<td>Liste le contenu d’un répertoire avec les droits d’accès (d = dossier, sinon c’est un fichier)</font></td>
+												</tr>
+												<tr>
+													<td>ls -la</td>
+													<td>Liste le contenu d’un répertoire avec les droits d’accès + fichiers cachés</font></td>
+												</tr>
+												<tr>
+													<td>cd [repertoire]</td>
+													<td>Change Directory (changer de répertoire de travail = se déplacer dans l’arborescence)</font></td>
+												</tr>
+												<tr>
+													<td>cd ..</td>
+													<td>Remonte d’un cran dans l’arborescence, dans répertoire PARENT</font></td>
+												</tr>
+												<tr>
+													<td nowrap="nowrap">mkdir [dossier1] [dossier2]</td>
+													<td>Crée un ou plusieurs dossiers (en spécifiant leurs noms) là où on se trouve</font></td>
+												</tr>
+												<tr>
+													<td>mkdir [nom\ dossier]</td>
+													<td>Permet de créer UN dossier possédant un nom composé d'un espace au milieu (le "\" est un caractère d'échappement de l'espace qui suit)</font></td>
+												</tr>
+												<tr>
+													<td>touch [fichier1] [fichier2]</td>
+													<td>Crée un ou plusieurs dossiers (en spécifiant leurs noms) là où on se trouve</font></td>
+												</tr>
+												<tr>
+													<td>touch [destinat.] / [fichier]</td>
+													<td>Crée un fichier à l’emplacement du dossier spécifié (peut faire même chose avec un dossier)</font></td>
+												</tr>
+												<tr>
+													<td nowrap="nowrap">mv [fich./doss.] [destinat.]</td>
+													<td>Déplacer un fichier/dossier d’un emplacement à un autre</font></td>
+												</tr>
+												<tr>
+													<td nowrap="nowrap">mv [fich./doss.] [nveau nom]</td>
+													<td>Renommer un fichier/dossier (et écraser le précèdent)</font></td>
+												</tr>
+												<tr>
+													<td nowrap="nowrap">cp (-r) [fich./doss.] [destinat.]</td>
+													<td>Copier un fichier/dossier vers un autre emplacement. Pour un dossier, ajouter l’option “-r” devant “cp”</font></td>
+												</tr>
+												<tr>
+													<td>rm [fichier]</td>
+													<td>Supprimer un fichier</font></td>
+												</tr>
+												<tr>
+													<td>rm -r [dossier]</td>
+													<td>Supprimer un dossier (/!\ Supprimer un dossier, qui est un PARENT supprime tous les ENFANTS !!!)</font></td>
+												</tr>
+												<tr>
+													<td>[commande] > [destination]</td>
+													<td>Redirige la sortie d’une commande et l’envoie ailleurs (ex:  ls > […] redirige ce qui est affiché grâce à “ls”).</font></td>
+												</tr>
+												<tr>
+													<td>cat</td>
+													<td>Afficher le contenu d’un fichier</font></td>
+												</tr>
+												<tr>
+													<td>more [fichier]</td>
+													<td>Afficher de façon lisible le contenu d’un fichier (navigation au clavier) qui est très long (q pour quitter)</font></td>
+												</tr>
+												<tr>
+													<td>less [fichier]</td>
+													<td>Même chose que less avec plus d’options (q pour quitter)</font></td>
+												</tr>
+												<tr>
+													<td>grep [mot] [nomfichier]</td>
+													<td>Afficher le contenu d’un fichier sans l’ouvrir (ex: affichera la phrase correspondante à un mot saisi )</font></td>
+												</tr>
+												<tr>
+													<td>*</td>
+													<td>Caractère “joker” : Peut être utilisé comme substitut pour n’importe quel caractère dans une recherche)</font></td>
+												</tr>
+												<tr>
+													<td>cd ./[dossier]</td>
+													<td>Accès au dossier depuis le répertoire COURANT</font></td>
+												</tr>
+												<tr>
+													<td>cd ~</td>
+													<td>Accès au répertoire ACCUEIL utilisateur ($HOME) → “cd” fait la même chose</font></td>
+												</tr>
+												<tr>
+													<td>$*</td>
+													<td>Liste des arguments</font></td>
+												</tr>
+												<tr>
+													<td>$#</td>
+													<td>Nombre de paramètres passés au script</font></td>
+												</tr>
+												<tr>
+													<td>$1, $2, $2…</td>
+													<td>Nombre du script passé (par ordre de position lors de l’exécution)</font></td>
+												</tr>
+												<tr>
+													<td>$0</td>
+													<td>Nom du script exécuté</font></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+									<strong>N.B. : [mot]</strong> Les mots entre crochets sont des paramètres dont la valeur dépend du contexte considéré (ex : le nom du dossier peut s'appeler "toto" ou "titi").
 						</div>
 					</div>
 
