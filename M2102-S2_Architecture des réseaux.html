@@ -356,6 +356,22 @@
 							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
 							<i>route add default gw 192.168.2.<b><font color="red">2</font></b> </i></br></br>
 
+
+						</br> <b>Tester la communication entre les machines</b> :  </br></br>  
+
+							<ul>
+								<li>
+									Il faut d'abord vérifier que l'adressage a été fait correctement pour chacune des machines: <b><i>ifconfig eth[numeroPort]</i></b></br>
+									ex : <i>ifconfig eth0</i> (La valeur de "inet addr:" doit être différente)
+							    </li>
+							    <li>
+							    	Pour tester la communication, il faut saisir la commande suivante depuis une machine en l'adressant à une autre machine :</br>
+									<b><i>ping -c[nombrePaquetsAenvoyer] [adresseAinterroger]</i></b></br>
+									ex : <i>ping -c1 192.168.10.2</i> (envoi d'un ping vers la machine A)</br></br>
+									Si les deux machines peuvent communiquer : la console indique une réponse avec autant de paquets qu'il en a été envoyé.
+							    </li>
+							</ul>
+
 							</br></br>
 							<b> Sitographie utile : </b>
 							</br></br>
