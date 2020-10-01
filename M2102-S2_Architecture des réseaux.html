@@ -286,12 +286,75 @@
 							    </li>
 							</ul>
 
-						</br> <b>Routage IP</b> :  </br></br>  
+						</br> <b>3. Routage IP</b> :  </br></br>  
 
 							Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
 							Tableur établi à partir de cette page Web : <a href="https://www.supinfo.com/articles/single/5665-adresses-ip-masques-reseau-ipv4">Adresses IP et masques de sous-réseau en IPV4</a> </br></br> 
 
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
 
+							 Soit le réseau Ethernet composé de plusieurs sous-réseaux (10, 20 et 30), auxquels appartiennent plusieurs machines (10 : A et B, 20 : C et D, 30 : S). S0, S1 et S2 sont des switchs. R1, R2 et Rx sont des routeurs. Enfin G1 est la Gateway, qui est connectée à Internet. On souhaite configurer le routage de ce réseau Ethernet. La configuration des éléments de ce réseau sous Linux se fait en plusieurs étapes. Ces commandes doivent être écrites dans le fichier /etc/rc.local :</br></br>
+
+							<b>Étape 1 :</b> Réaliser le plan d'adressage de chaque machine (une carte réseau = 1 côté à brancher = 1 fil, c'est eth0) :</br>
+							<b><i>if config eth0 [adresseSousRéseauMachine+<font color="red">numéroBranchement</font>] </i></b></br>
+							ex : - Pour la machine A, ce sera : <i>if config eth0 192.168.10.<b><font color="red">2</font></b>/24</i></br>
+							- Pour la machine C, ce sera : <i>if config eth0 192.168.20.<b><font color="red">3</font></b>/24</i></br></br>
+
+							Réaliser le plan d'adressage de chaque routeur (deux cartes réseaux = 2 côtés à brancher = 2 fils, c'est eth0 et eth1) :</br>
+							<b><i>if config eth0 [adresseSousRéseauCôtéEth0+<font color="red">numéroBranchement</font>] </i></b></br>
+							<b><i>if config eth1 [adresseSousRéseauCôtéEth1+<font color="red">numéroBranchement</font>] </i></b></br>
+							ex : - Pour le routeur R1, ce sera : </br>
+							<i>if config eth0 192.168.10.<b><font color="red">1</font></b>/24</i></br>
+							<i>if config eth1 192.168.20.<b><font color="red">1</font></b>/24</i></br></br>
+							- Pour le routeur Rx, ce sera : </br>
+							<i>if config eth0 192.168.30.<b><font color="red">1</font></b>/24</i></br>
+							<i>if config eth1 192.168.2.<b><font color="red">2</font></b>/24</i></br></br>
+
+							Réaliser le plan d'adressage du Gateway :</br>
+							<i>if config eth0 192.168.2.<b><font color="red">2</font></b>/24</i></br></br></br>
+
+							<b>Étape 2 :</b> Ajout des chemins d'accès via la syntaxe "route add", suivi d'un des trois suffixes suivants : 
+							<ul>
+								<li>
+									<b>host </b> : Vers une machine
+							    </li>
+							    <li>
+							    	<b>-net </b> : Vers un sous-réseau (tous les embranchements les plus proches hors du point de sortie commun obtenu via "default gw").
+							    </li>
+							    <li>
+							    	<b>default gw </b> : Vers tous les réseaux (point de sortie commun des "-net", vers Internet. Il y a toujours une ligne, ni plus ni moins, par élément d'un réseau).
+							    </li>
+							</ul>
+
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
+
+							Configurer le routage IP de chaque machine :</br>
+							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauMachine+<font color="red">n°ExtérieurAuSousRéseauCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
+							[...]</br>
+							<b><i>route add default gw [adresseSousRéseauMachine+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
+							ex : - Pour la machine C (même chose pour D), ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
+							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
+							- Pour la machine S, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
+
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
+
+							Configurer le routage IP de chaque routeur :</br>
+							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauPlusProcheRouteur+<font color="red">n°SousRéseauPlusProcheRouteurCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
+							[...]</br>
+							<b><i>route add default gw [adresseSousRéseauCôtéInternet+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
+							ex : - Pour le routeur R1, ce sera : </br>
+							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
+							- Pour le routeur R2, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
+							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
+							- Pour le routeur Rx, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add default gw 192.168.2.<b><font color="red">2</font></b> </i></br></br>
 
 							</br></br>
 							<b> Sitographie utile : </b>
