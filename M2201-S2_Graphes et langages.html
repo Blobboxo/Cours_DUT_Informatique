@@ -53,17 +53,27 @@
 						<div class="inner" align="justify">
 							<h1>Graphes</h1>
 							<span class="image main"><img src="images/Croquis_Graphes.jpg" alt="" /></span>
-							<p><h2>Définitions et concepts de base : (numéros associés aux figures) </h2><p>
-							<b>1. Graphe orienté</b> : Les sommets sont reliés par des arcs ("flèches").</br>
-							<b>2. Graphe non orienté</b> : Les sommets sont reliés par des arrêtes.</br>
-							<b>3.</b> </br> 
-							- <b> Degré sortant d'un sommet </b> : Nombres d'arcs dirigés hors du sommet désigné (<u>ex:</u> d+(1) = 2 en rouge et bleu). <u>N.B.:</u> Arc bleu = sortant ET entrant.</br>
+							<h2>Définitions et concepts de base : (numéros associés aux figures) </h2>
+
+
+							<button class="collapsible">1. Graphe orienté</button>
+							<div class="content">
+  							<p>Les sommets sont reliés par des arcs ("flèches").</p>
+							</div>
+
+							<button class="collapsible">2. Graphe non orienté</button>
+							<div class="content">
+  							<p>Les sommets sont reliés par des arrêtes.</p>
+							</div>
+
+							<button class="collapsible">3. Définitions</button>
+							<div class="content">
+  							<p>- <b> Degré sortant d'un sommet </b> : Nombres d'arcs dirigés hors du sommet désigné (<u>ex:</u> d+(1) = 2 en rouge et bleu). <u>N.B.:</u> Arc bleu = sortant ET entrant.</br>
 							- <b> Degré entrant d'un sommet </b> : Nombres d'arcs dirigés vers le sommet désigné (<u>ex:</u> d-(1) = 1 en vert).</br>
 							- <b> Degré d'un sommet </b> : Somme degrés sortants et entrants (<u>ex:</u> =  d+(1) +  d-(1) = 2 + 1 = 3).</br>
 							- <b> Taille d'un graphe </b> : Nombre d'arcs (<u>ex:</u> m = 4).</br>
 							- <b> Ordre d'un graphe </b> : Nombre de sommets (<u>ex:</u> n = 3).</br>
-							- <b> Liste d'adjacence </b> : Tableau à deux colonnes qui présente chaque sommet et ses successeurs correspondants. L'arc "rentrant" d'un sommet est le successeur du sommet dont il provient et d'où il "sort"  (<u>ex:</u> 3 est le successeur de 2). Les successeurs sont rangés dans l'ordre croissant des numéros :</br>
-
+							- <b> Liste d'adjacence </b> : Tableau à deux colonnes qui présente chaque sommet et ses successeurs correspondants. L'arc "rentrant" d'un sommet est le successeur du sommet dont il provient et d'où il "sort"  (<u>ex:</u> 3 est le successeur de 2). Les successeurs sont rangés dans l'ordre croissant des numéros :</br></p>
 							<div class="table-wrapper">
 										<table class="alt">
 											<thead>
@@ -88,12 +98,16 @@
 											</tbody>
 										</table>
 									</div>
+							</div>
 
-							<b> 4. Matrice d'adjacence </b> : La matrice "M" est établie à partir de la liste d'adjacence du graphe n°3. Étant une matrice, chaque case peut être associée à un numéro avec dans l'axe "x" le numéro du successeur correspondant et dans l'axe "y" le numéro du sommet correspondant. Il y a autant de sommets que de successeur en x et en y, il s'agit d'une matrice carrée. Plus simplement, si on a 3 sommets, comme ici, on aura 3 lignes pour 3 colonnes. Les numéros entourés qui figurent sur le schéma ci-dessous ne sont présents qu'à titre indicatif, pour aider à la lecture, en reprenant la numérotation de l'axe des "x" et des "y". De même que pour les flèches qui figurent ces axes. Ces éléments présents à titre indicatif sont en rouge. </br>
-							</br>
-						
-							<b> 5. Etablir LS (Liste des Successeurs) et TS (Têtes des Successeurs) </b> : </br> 
-							- <u> Etape 1 :</u> Liste d'adjacence : déjà faite avant le 4. </br>
+							<button class="collapsible">4. Matrice d'adjacence</button>
+							<div class="content">
+  							<p> La matrice "M" est établie à partir de la liste d'adjacence du graphe n°3. Étant une matrice, chaque case peut être associée à un numéro avec dans l'axe "x" le numéro du successeur correspondant et dans l'axe "y" le numéro du sommet correspondant. Il y a autant de sommets que de successeur en x et en y, il s'agit d'une matrice carrée. Plus simplement, si on a 3 sommets, comme ici, on aura 3 lignes pour 3 colonnes. Les numéros entourés qui figurent sur le schéma ci-dessous ne sont présents qu'à titre indicatif, pour aider à la lecture, en reprenant la numérotation de l'axe des "x" et des "y". De même que pour les flèches qui figurent ces axes. Ces éléments présents à titre indicatif sont en rouge.</p>
+							</div>
+
+							<button class="collapsible">5. Etablir LS (Liste des Successeurs) et TS (Têtes des Successeurs)</button>
+							<div class="content">
+  							<p>- <u> Etape 1 :</u> Liste d'adjacence : déjà faite avant le 4. </br>
 							- <u> Etape 2 :</u> Etablir couples de A (ensemble des arcs de G)  en ayant préalablement numéroté en indice chaque relation sur le graphe (cf. figure n°5) et éventuellement sur la liste d'adjacence, en partant de 0. </br></br>
 							<b> <font color="red"> A = { ( 1,<font color="green">1</font> ) ; ( 1,<font color="green">2</font> ) ; ( 2,<font color="green">1</font> ) ; ( 2,<font color="green">3</font> ) } </font> </b></br>
 
@@ -152,11 +166,13 @@
 												</tr>
 											</tbody>
 										</table>
-									</div></br>
+									</div></br></p>
+							</div>
 
-
-									<b> 6. Calculer le produit (réel ou booléen) d'une matrice carrée </b> : </br></br>
-									- <u> Produit matriciel réel (M²=M*M=M.M) :</u> Il faut faire l'addition terme à terme en x (ligne) pour A et y (colonne) pour B. Dans le cas présent. Pour calculer la case en xC3,yC3 (en jaune) de la matrice C, il faudrait faire : </br>
+							<button class="collapsible">6. Calculer le produit (réel ou booléen) d'une matrice carrée</button>
+							<div class="content">
+  							<p>
+  									- <u> Produit matriciel réel (M²=M*M=M.M) :</u> Il faut faire l'addition terme à terme en x (ligne) pour A et y (colonne) pour B. Dans le cas présent. Pour calculer la case en xC3,yC3 (en jaune) de la matrice C, il faudrait faire : </br>
 									(xA1*yB1) + (xA2*yB2) + (xA3*yB3)</br>
 									(1*1) + (1*1) + (1*1)</br>
 									= 1+1+1</br>
@@ -187,17 +203,25 @@
 									= 1 OU 1 OU 1</br>
 									= 1</br></br>
 
-									<b><font color="red">/!\</font></b> On pourra retenir que le résultat d'une case de la matrice booléenne fera 1 dès lors que l'un des termes résultant de la conjonction de ET (séparés par des OU) fera 1.</br></br></br>
+									<b><font color="red">/!\</font></b> On pourra retenir que le résultat d'une case de la matrice booléenne fera 1 dès lors que l'un des termes résultant de la conjonction de ET (séparés par des OU) fera 1.</br></br></br></p>
+							</div>
 
-
-									<b> 7. Calculer la matrice d'adjacence de la fermeture transitive d'un graphe via l'algorithme de Warshall </b> : </br></br>
-									- <u> Etape 1 (C0) :</u> Metttre en évidence la première ligne et la première colonne de la matrice considérée. Mettre des 1 aux cases là où les lignes et les colonnes de la première ligne/colonne ont des 1 qui se croisent. De façon plus claire, pour une case donnée hors des couples de la première ligne/colonne : il faudra voir si il existe à la fois en x et y un 1 au regard du couple première ligne/colonne.</br>
+							<button class="collapsible">7. Calculer la matrice d'adjacence de la fermeture transitive d'un graphe</button>
+							<div class="content">
+  							<p>
+  									- <u> Etape 1 (C0) :</u> Metttre en évidence la première ligne et la première colonne de la matrice considérée. Mettre des 1 aux cases là où les lignes et les colonnes de la première ligne/colonne ont des 1 qui se croisent. De façon plus claire, pour une case donnée hors des couples de la première ligne/colonne : il faudra voir si il existe à la fois en x et y un 1 au regard du couple première ligne/colonne.</br>
 									- <u> Etape 2 (C1) :</u> On procède de la même façon avec les couples de la deuxième ligne/deuxième colonne.</br>
 									- <u> Etape 3 (Cn) :</u> Faire de même jusqu'à arriver à la dernière ligne et colonne du graphe. </br>
-									- <u> Etape 4 :</u> Ajouter les nouvelles relations au graphe qui pourra été modifié grâce aux 1 (successeurs de sommets) issus de cet algorithme. </br></br>
+									- <u> Etape 4 :</u> Ajouter les nouvelles relations au graphe qui pourra été modifié grâce aux 1 (successeurs de sommets) issus de cet algorithme. </br></br></p>
+							</div>
 
-									<b> 8. La matrice résultante montre les nouvelles relations qui sont en rouge après application de l'algorithme de Warshall en 7.</b></br></br></br>
+							<button class="collapsible">8. Matrice résultant de l'algorithme de Warshall</button>
+							<div class="content">
+  							<p>La matrice résultante montre les nouvelles relations qui sont en rouge après application de l'algorithme de Warshall en 7.</p>
+							</div>
 
+							</br>
+							
 
 									<b> Sitographie utile : </b>
 							</br></br>
@@ -249,6 +273,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/copy.js"></script>
+			<script src="assets/js/collapsible.js"></script>
 
 	</body>
 </html>
