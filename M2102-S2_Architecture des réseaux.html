@@ -53,10 +53,11 @@
 						<div class="inner" align="justify">
 							<h1>Architecture des réseaux</h1>
 							<span class="image main"><img src="images/Croquis_ArchitectureReseaux.jpg" alt="" /></span>
-							<p><h2>Définitions et concepts de base : (numéros associés aux figures) </h2><p>
+							<h2>Définitions et concepts de base : (numéros associés aux figures) </h2>
 
-
-							</br><b>1. Commutation Ethernet</b> : Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
+							<button class="collapsible">1. Commutation Ethernet</button>
+							<div class="contentC">
+  							Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
 							<ul>
 								<li><u>SW1 :</u> </br> 
 								- Port 1 : Inscrit l'adresse MAC de A, soit @MAC_A. </br> 
@@ -68,11 +69,12 @@
 							    - Port 2 : Inscrit l'adresse MAC de S, @MAC_S. </br> 
 								- Port 3 : Inscrit l'adresse MAC de C, soit @MAC_C. </br> 
 								</li>
-							</ul>
+							</ul></p>
+							</div>
 
-
-							<b>2. Masques de sous-réseaux</b> :  </br>
-							</br><div class="table-wrapper">
+							<button class="collapsible">2. Masques de sous-réseaux</button>
+							<div class="contentC">
+  							</br><div class="table-wrapper">
 										<table class="alt">
 											<thead>
 												<tr>
@@ -284,12 +286,16 @@
 							    - Nombre de sous-réseaux : 0 bits sont utilisés donc 2^0, puis 1 bit est utilisé donc 2^1=2... </br> 
 								- Nombre de machines : Utilise la formule 2^(32-n)-2^1 avec n=CIDR=/24=nombre bits significatifs soit 2^(32-24)-2=2^8-2=254 (plus simplement 8 bits disponibles sur l'octet d'adressage machine), puis 7 bits disponibles pour 1 bit utilisé... </br>
 							    </li>
-							</ul>
 
-						</br> <b>3. Routage IP</b> :  </br></br>  
+							</br>
+							<p>Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
+							Tableur établi à partir de cette page Web : <a href="https://www.supinfo.com/articles/single/5665-adresses-ip-masques-reseau-ipv4">Adresses IP et masques de sous-réseau en IPV4</a> 
+							</div>
 
-							Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
-							Tableur établi à partir de cette page Web : <a href="https://www.supinfo.com/articles/single/5665-adresses-ip-masques-reseau-ipv4">Adresses IP et masques de sous-réseau en IPV4</a> </br></br> 
+							<button class="collapsible">3. Routage IP</button>
+							<div class="contentC">
+
+							</br>
 
 							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
 
@@ -370,9 +376,10 @@
 									ex : <i>ping -c1 192.168.10.2</i> (envoi d'un ping vers la machine A)</br></br>
 									Si les deux machines peuvent communiquer : la console indique une réponse avec autant de paquets qu'il en a été envoyé.
 							    </li>
-							</ul>
+							</ul></p>
+							</div>
 
-							</br></br>
+							</br>
 							<b> Sitographie utile : </b>
 							</br></br>
 							- <a href="https://www.supinfo.com/articles/single/4843-adresses-ip-privees-publiques#idm44858298738896">Les Adresses IP privées et publiques</a> </br> 
@@ -415,6 +422,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/copy.js"></script>
+			<script src="assets/js/collapsible.js"></script>
 
 	</body>
 </html>
