@@ -3329,3 +3329,42 @@ input, select, textarea {
 			}
 
 		}
+
+
+/* Collapsible */
+ /* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: white;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: white;
+}
+
+.collapsible:after {
+  content: '\2B9E';
+  color: black;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2B9F";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: white;
+  margin-bottom: 10px;
+}
