@@ -61,14 +61,14 @@
 							<span class="image main"><img src="images/Croquis_AdminSystRes.jpg" alt="" /></span>
   							Soit un réseau composé de deux groupes (PCs 1, 2, 3 et PCs 4, 5, 6) de trois machines chacuns connectés (câbles droits) à un switch. Les switchs (S2 et S3) sont eux-mêmes reliés (câbles croisés) à un troisième switch S1. Chaque switch possède huit cartes réseaux. On ne met pas encore en place les VLANs. La table de routage correspondante est la suivante (IPv4 Broadcast = passerelle réseau) : </br></br>  
   							<span class="image main"><img src="images/Croquis_AdminSystRes2.jpg" alt="" /></span>
-  							La passerelle réseau est en /24 car /16 signifierait que l'on s'arrêterait au 3ème octet (10, 20 ou 30) : l'adressage (ping) marcherait alors entre toutes les machines (même si elles ont des sous-réseaux différents) car la partie machine serait ignorée (dernier octet). Ce n'est pas ce que l'on souhaite car les machines doivent pouvoir distinguables les unes des autres afin de pouvoir mettre en place des réseaux virtuels. </br></br> 
+  							La passerelle réseau est en /24 car /16 signifierait que l'on s'arrêterait au 3ème octet (10, 20 ou 30) : l'adressage (ping) marcherait alors entre toutes les machines (même si elles ont des sous-réseaux différents) car la partie machine serait ignorée (dernier octet). Plus précisèment, sans VLAN un switch considère toutes ses interfaces comme étant dans le même LAN et donc dans le même domaine de broadcast. Les machines doivent pouvoir distinguables les unes des autres afin de pouvoir mettre en place des réseaux virtuels. </br></br> 
 
   							On cherche maintenant à tester la connectivité entre les machines (ping réussi si pour 1 paquet envoyé, 1 est reçu, soit 0% perdu) :  
 							<ul>
-								<li><u>PC1 et PC2 :</u> Elle ne fonctionne pas car ces machines sont sur des sous-réseaux différents (.10 et .20).</br></li> 
+								<li><u>PC1 et PC2 :</u> Elle ne fonctionne <b>pas</b> car ces machines sont sur des sous-réseaux différents (.10 et .20).</br></li> 
 								<li><u>PC1 et PC4 :</u> Elle fonctionne car ces machine sont sur des sous-réseaux identiques (.10). Bien que les machines soient séparés par un switch, on est sur un réseau "à plat", avec les VLANs qui n'ont pas encore été mis en place, donc cela fonctionne. Si les VLANs avaient déjà été mis en place, cela n'aurait pas fonctionné.</br></li> 
 								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Fonctionne car les sous-réseaux sont identiques (.10).</br></li> 
-							</ul></p>
+							</ul>
 
 							On souhaite maintenant créer et affecter les VLANs exclusivement sur les ports 3 à 8 des switchs S1, S2 et S3. Les ports 1 et 2 seront réservés à la connexion entre les switchs S2 et S3 avec S1. On suivra la même procédure pour écrire le fichier de configuration des trois switchs pour leurs ports 3 à 8 : 
 							<ul>
@@ -81,16 +81,21 @@
 								<li>vlan/setvlan 6 20</br></li> 
 								<li>vlan/setvlan 7 30</br></li> 
 								<li>vlan/setvlan 8 30</br></li> 								
-							</ul></p>
+							</ul>
 
 							<span class="image main"><img src="images/Croquis_AdminSystRes3.jpg" alt="" /></span>
 
   							On souhaite tester à nouveau la connectivité entre les machines :  
 							<ul>
-								<li><u>PC1 et PC2 :</u> Elle ne fonctionne pas car ces machines sont sur des sous-réseaux différents (.10 et .20).</br></li> 
-								<li><u>PC1 et PC4 :</u> Elle fonctionne car ces machine sont sur des sous-réseaux identiques (.10). Bien que les machines soient séparés par un switch, on est sur un réseau "à plat", avec les VLANs qui n'ont pas encore été mis en place, donc cela fonctionne. Si les VLANs avaient déjà été mis en place, cela n'aurait pas fonctionné.</br></li> 
-								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Fonctionne car les sous-réseaux sont identiques (.10).</br></li> 
-							</ul></p>
+								<li><u>PC1 et PC2 :</u> Elle ne fonctionne <b>pas</b> car ces machines sont chacunes isolées sur leurs réseau privatif respectif (VLAN 10 et VLAN 20).</br></li> 
+								<li><u>PC1 et PC4 :</u> Elle ne fonctionne <b>pas</b> car bien que ces machines aient une VLAN identique (10), le réseau n'est plus à plat, il a segmenté par la mise en place des VLANs qui isole chacun des composants au sein de leurs sous-réseaux, avec le switch S1 qui fait office de barrière"tampon" intermédiaire.</br></li> 
+								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Elle ne fonctionne <b>pas</b> car bien que ces machines aient un sous-réseau identique (10), leurs VLAN respectives sont différentes (10 et 20).</br></li> 
+							</ul>
+
+							<span class="image main"><img src="images/Croquis_AdminSystRes4.jpg" alt="" /></span>
+
+							On déplace le PC4 du switch S3 vers le port 4 libre du switch S2. On reteste la connectivité entre PC1 et PC4 :
+							  
 
 
 
