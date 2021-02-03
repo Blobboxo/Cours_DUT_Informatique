@@ -1,0 +1,434 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="fr"> 
+	<head>
+		<title>Administration système et réseau</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="https://img.icons8.com/nolan/64/computer.png" alt="" /></span><span class="title">Fiches-Récapitulatives DUT Informatique</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li><a href="index_first_year.html">Première année</a></li>
+							<li><a href="index_complements.html">Compléments</a></li>
+							<li><a href="index_second_year.html">Deuxième année</a></li>
+							<!--<li><a href="generic.html">Consequat dolor</a></li>
+							<li><a href="elements.html">Elements</a></li> -->
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner" align="justify">
+							<h1>Administration système et réseau</h1>
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux.jpg" alt="" /></span>
+							<h2>Définitions et concepts de base : (numéros associés aux figures) </h2>
+
+
+							<button class="collapsible">1. Commutation / VLAN</button>
+							<div class="contentC">
+							</br> 
+  							Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
+							<ul>
+								<li><u>SW1 :</u> </br> 
+								- Port 1 : Inscrit l'adresse MAC de A, soit @MAC_A. </br> 
+							    - Port 2 : Inscrit l'adresse MAC de toutes les stations et serveurs situé(e)s de ce côté (cf. le noeud d'un arbre a plusieurs branches connectées), soit @MAC_S et @MAC_C. </br> 
+								- Port 3 : Inscrit l'adresse MAC de B, soit @MAC_B. </br> 
+							    </li>
+								<li><u>SW2 :</u> </br> 
+								- Port 1 : Inscrit l'adresse MAC de toutes les stations situées de ce côté, soit @MAC_A et @MAC_B. </br> 
+							    - Port 2 : Inscrit l'adresse MAC de S, @MAC_S. </br> 
+								- Port 3 : Inscrit l'adresse MAC de C, soit @MAC_C. </br> 
+								</li>
+							</ul></p>
+							</div>
+
+
+							<!--
+							<button class="collapsible">2. ?</button>
+							<div class="contentC">
+  							</br><div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Classe d'adresse IP</th>
+													<th>Champs de valeurs publiques</th>
+													<th>Champs de valeurs privées</th>
+													<th>Masque de sous-réseau par défaut</th>
+													<th>Notation CIDR (<strong>*</strong>)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>Classe A<b></td>
+													<td><b>1.X.X.X -> .126.X.X.X</font><b></td>
+													<td><b>10.0.0.0 -> 10.255.255.255<b></td>
+													<td><b>255.0.0.0<b></td>
+													<td><b>/8<b></td>
+
+												</tr>
+												<tr>
+													<td><b>Classe B<b></td>
+													<td><b>128.X.X.X -> 191.X.X.X</font><b></td>
+													<td><b>172.16.0.0 -> 172.31.255.255<b></td>
+													<td><b>255.255.0.0<b></td>
+													<td><b>/16<b></td>
+
+												</tr>
+												<tr>
+													<td><b>Classe C<b></td>
+													<td><b>192.X.X.X -> 223.X.X.X<b></td>
+													<td><b>192.168.0.0 -> 192.168.255.255<b></td>
+													<td><b>255.255.255.0<b></td>
+													<td><b>/24<b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<strong>*</strong> Nombre adresses IPv4 disponibles pour les hôtes du réseau.
+									</br>
+									</br>
+									</br>
+
+
+							 Soit l'adresse IP 192.168.0.0 (classe C). Une adresse IP est codée sur quatre octets, chacun codé de 0 à 255. Pour calculer le nombre d'adresses locales possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 2^1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
+							==> Ici ce sera 2^8-2^1=254 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diponibles pour les adresses machines. </br> 
+							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
+							<ul>
+								<li><u>Adresse en binaire :</u> </br> Elle se décompose ainsi sur le <strong>premier</strong> octet (voir pour le détail : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.1</a>) : </br>
+							[ 1 , 1  ][  0,    0,   0,   0,   0,   0] </br>
+							soit : </br>
+							[2^8, 2^7][2^6, 2^5, 2^4, 2^3, 2^2, 2^1] </br>
+							==>[1,1]=2^7+2^6=192 : C'est la partie adresse machine de l'adresse IP. Cette valeur remplacera le "0" du masque de sous-réseau par défaut. </br>
+									</br>
+
+									</li>
+								<li><u>Masque :</u> L'adresse IP est de classe C. On sait que le masque réseau de cette classe est  255.255.255.0. Il y aura donc un octet 
+						  	(partiellement) disponible dont il faudra remplacer la valeur par 192 (valeur octet adressage machine) pour connaître la valeur du masque de <strong>cette</strong> adresse IP (et non pas de sa classe), soit : 255.255.255.192. Parmi les quatre octets, les trois premiers (bits de machine) sont remplis (255) de 8 bits chacun (un octet = 8 bits), tandis que le dernier (bit de sous-réseau) a 2 bits sur 8  disponibles. Pourquoi 2 bits ?  Pour la valeur 192, il faut en écriture binaire mettre un 1 à 128 et à 164. Le numéro du masque (/26) se trouve en comptant le nombre de 1 (bits significatifs) en écriture binaire de l'adresse 255.255.255.192, tel que 255=8 bits (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.2</a>), d'où 8*3=24 bits + 2 bits (192=2 bits en écriture binaire) (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.3</a>).</br>
+										</br>
+
+										</li>
+							<li><u>Sous-réseaux :</u> On pourra en déployer jusqu'à <strong>quatre</strong>, car pour 2 emplacements de valeurs possibles  ([1,1]) sur la partie adressage machine il y a 2^2=<strong>4</strong> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). Ils se décomposent ainsi : </br> </br> 
+
+								</li>
+							</ul>
+
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Sous-réseau</th>
+													<th>Bornes <strong>*</strong></th>
+													<th>Masque</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>[ 0 , 0 ] : /<b></td>
+													<td><b>.1 -> .62 broadcast 63<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>[ 0 , 1 ] : 64<b></td>
+													<td><b>.65 -> .126 broadcast 127<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>[ 1 , 0 ] : 128<b></td>
+													<td><b>.129 -> .190 broadcast 191<b></td>
+													<td><b>/26<b></td>
+												</tr>
+												<tr>
+													<td><b>[ 1 , 1 ] : 192<b></td>
+													<td><b>.193 -> .254 broadcast 255<b></td>
+													<td><b>/26<b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+							<strong>*</strong> Plages d'adresses machines qui servent à adresser les sous-réseaux
+							</br>
+							</br>
+
+							</br> <b>Adressage IP</b> :  </br></br>  
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Adresse IP Hôte</th>
+													<th>Classe d'adresse</th>
+													<th><font color="red"> Adresse Réseau </font></th>
+													<th><font color="red"> Adresse Broadcast Réseau</font></th>
+													<th><font color="red"> Masque de sous-réseau</font></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>216.14.55.137<b></td>
+													<td><b>C (publique)<b></td>
+													<td><b>216.14.55.<font color="red">0</font><b></td>
+													<td><b>216.14.55.<font color="red">255</font><b></td>
+													<td><b>255.255.255.<font color="red">0</font><b></td>
+												</tr>
+												<tr>
+													<td><b>123.1.1.15<b></td>
+													<td><b>A (publique)<b></td>
+													<td><b>123.<font color="red">0.0.0</font><b></td>
+													<td><b>123.<font color="red">255.255.255</font><b></td>
+													<td><b>255.<font color="red">0.0.0</font><b></td>
+												</tr>
+												<tr>
+													<td><b>175.12.239.244<b></td>
+													<td><b>B (publique)<b></td>
+													<td><b>175.12.<font color="red">0.0</font><b></td>
+													<td><b>175.12.<font color="red">255.255</font><b></td>
+													<td><b>255.255.<font color="red">0.0</font><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+							<ul>
+								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
+								- Adresse Réseau : Croiser adresse IP Hôte et Masque de sous-réseau de la classe correspondante. Les "0" du masque remplacent alors les chiffres de l'adresse IP Hôte. </br> 
+							    - Adresse Broadcast Réseau : Les 0 sont remplacés par des 255. </br> 
+								- Masque de sous-réseau : Inverser le 255->0 et les autres chiffres en 255. </br> 
+							    </li>
+							</ul>
+
+							</br>  
+							<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Masque de sous-réseau (classe C)</th>
+													<th>Nombre de sous-réseaux</th>
+													<th>Nombre de machines (ou d'hôtes)</font></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b>255.255.255.0 (/24)<b></td>
+													<td><b>1 (2^0=1)<b></td>
+													<td><b>2^8-2=254</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.128 (/25)<b></td>
+													<td><b>2(0 ou 1) (2^1=2)<b></td>
+													<td><b>2^7-2=128</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.192 (/26)<b></td>
+													<td><b>4 (2^2=4)<b></td>
+													<td><b>2^6-2=62</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.224 (/27)<b></td>
+													<td><b>8 (2^3=8)<b></td>
+													<td><b>2^5-2=30</font><b></td>
+												</tr>
+												</tr>
+												<tr>
+													<td><b>255.255.255.240 (/28)<b></td>
+													<td><b>16 (2^4=16)<b></td>
+													<td><b>2^4-2=14</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.248 (/29)<b></td>
+													<td><b>32 (2^5=32)<b></td>
+													<td><b>2^3-2=6</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.252 (/30)<b></td>
+													<td><b>64 (2^6=64)<b></td>
+													<td><b>2^2-2=2</font><b></td>
+												</tr>
+												<tr>
+													<td><b>255.255.255.254 (/31)<b></td>
+													<td><b>128 (2^7=128)<b></td>
+													<td><b>2^1-2=0</font><b></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+							<ul>
+								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
+								- Masque de sous-réseau : D'après la formule du nombre de machines : 0 bits sont utilisés puis il reste 7 bits soit 2^7=128...
+								puis 2^6=64 et donc 128+64=192, puis 2^5=32 et donc 192+32=224... </br> 
+							    - Nombre de sous-réseaux : 0 bits sont utilisés donc 2^0, puis 1 bit est utilisé donc 2^1=2... </br> 
+								- Nombre de machines : Utilise la formule 2^(32-n)-2^1 avec n=CIDR=/24=nombre bits significatifs soit 2^(32-24)-2=2^8-2=254 (plus simplement 8 bits disponibles sur l'octet d'adressage machine), puis 7 bits disponibles pour 1 bit utilisé... </br>
+							    </li>
+
+							</br>
+							<p>Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
+							</div>
+						-->
+
+							<!--
+							<button class="collapsible">3. Routage IP</button>
+							<div class="contentC">
+
+							</br>
+
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
+
+							 Soit le réseau Ethernet composé de plusieurs sous-réseaux (10, 20 et 30), auxquels appartiennent plusieurs machines (10 : A et B, 20 : C et D, 30 : S). S0, S1 et S2 sont des switchs. R1, R2 et Rx sont des routeurs. Enfin G1 est la Gateway, qui est connectée à Internet. On souhaite configurer le routage de ce réseau Ethernet. La configuration des éléments de ce réseau sous Linux se fait en plusieurs étapes. Ces commandes doivent être écrites dans le fichier /etc/rc.local :</br></br>
+
+							<b>Étape 1 :</b> Réaliser le plan d'adressage de chaque machine (une carte réseau = 1 côté à brancher = 1 fil, c'est eth0) :</br>
+							<b><i>if config eth0 [adresseSousRéseauMachine+<font color="red">numéroBranchement</font>] </i></b></br>
+							ex : - Pour la machine A, ce sera : <i>if config eth0 192.168.10.<b><font color="red">2</font></b>/24</i></br>
+							- Pour la machine C, ce sera : <i>if config eth0 192.168.20.<b><font color="red">3</font></b>/24</i></br></br>
+
+							Réaliser le plan d'adressage de chaque routeur (deux cartes réseaux = 2 côtés à brancher = 2 fils, c'est eth0 et eth1) :</br>
+							<b><i>if config eth0 [adresseSousRéseauCôtéEth0+<font color="red">numéroBranchement</font>] </i></b></br>
+							<b><i>if config eth1 [adresseSousRéseauCôtéEth1+<font color="red">numéroBranchement</font>] </i></b></br>
+							ex : - Pour le routeur R1, ce sera : </br>
+							<i>if config eth0 192.168.10.<b><font color="red">1</font></b>/24</i></br>
+							<i>if config eth1 192.168.20.<b><font color="red">1</font></b>/24</i></br></br>
+							- Pour le routeur Rx, ce sera : </br>
+							<i>if config eth0 192.168.30.<b><font color="red">1</font></b>/24</i></br>
+							<i>if config eth1 192.168.2.<b><font color="red">1</font></b>/24</i></br></br>
+
+							Réaliser le plan d'adressage du Gateway :</br>
+							<i>if config eth0 192.168.2.<b><font color="red">2</font></b>/24</i></br></br></br>
+
+							<b>Étape 2 :</b> Ajout des chemins d'accès via la syntaxe "route add", suivi d'un des trois suffixes suivants : 
+							<ul>
+								<li>
+									<b>host </b> : Vers une machine
+							    </li>
+							    <li>
+							    	<b>-net </b> : Vers un sous-réseau (tous les embranchements les plus proches hors du point de sortie commun obtenu via "default gw").
+							    </li>
+							    <li>
+							    	<b>default gw </b> : Vers tous les réseaux (point de sortie commun des "-net", vers Internet. Il y a toujours une ligne, ni plus ni moins, par élément d'un réseau).
+							    </li>
+							</ul>
+
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
+
+							Configurer le routage IP de chaque machine :</br>
+							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauMachine+<font color="red">n°ExtérieurAuSousRéseauCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
+							[...]</br>
+							<b><i>route add default gw [adresseSousRéseauMachine+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
+							ex : - Pour la machine C (même chose pour D), ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
+							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
+							- Pour la machine S, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
+
+							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
+
+							Configurer le routage IP de chaque routeur :</br>
+							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauPlusProcheRouteur+<font color="red">n°SousRéseauPlusProcheRouteurCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
+							[...]</br>
+							<b><i>route add default gw [adresseSousRéseauCôtéInternet+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
+							ex : - Pour le routeur R1, ce sera : </br>
+							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
+							- Pour le routeur R2, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
+							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
+							- Pour le routeur Rx, ce sera : </br>
+							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
+							<i>route add default gw 192.168.2.<b><font color="red">2</font></b> </i></br></br>
+
+
+						</br> <b>Tester la communication entre les machines</b> :  </br></br>  
+
+							<ul>
+								<li>
+									Il faut d'abord vérifier que l'adressage a été fait correctement pour chacune des machines: <b><i>ifconfig eth[numeroPort]</i></b></br>
+									ex : <i>ifconfig eth0</i> (La valeur de "inet addr:" doit être différente)
+							    </li>
+							    <li>
+							    	Pour tester la communication, il faut saisir la commande suivante depuis une machine en l'adressant à une autre machine :</br>
+									<b><i>ping -c[nombrePaquetsAenvoyer] [adresseAinterroger]</i></b></br>
+									ex : <i>ping -c1 192.168.10.2</i> (envoi d'un ping vers la machine A)</br></br>
+									Si les deux machines peuvent communiquer : la console indique une réponse avec autant de paquets qu'il en a été envoyé.
+							    </li>
+							</ul></p>
+							</div>
+						-->
+
+							<!--
+							</br>
+							<b> Sitographie utile : </b>
+							</br></br>
+							- <a href="https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP/Adressage_IP_v4">Réseaux TCP/IP/Adressage IP v4</a> </br> 
+							- <a href="https://www.frameip.com/masques-de-sous-reseau/">Masque de sous-réseau IP</a> </br> 
+							- <a href="https://www.faidherbe.org/tutoriel/ip.htm">Protocole  I.P. : réseaux et sous-réseaux  (locaux)</a> </br> 
+							- <a href="https://www.frameip.com/entete-ethernet/">Entête Ethernet</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/le-datagramme-ip/">Datagramme IP</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/ladressage-ip/">Adressage IP</a> </br> 
+							- <a href="http://www.gatoux.com/index.php/le-routage/">Routage</a> </br> 
+							-->
+							</div>
+							</div>
+						
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<section>
+								<h2 class="major">Contact</h2>
+								<p>Vous pouvez me contacter à l'adresse e-mail suivante : </p>
+								<!-- Copier Adresse Mail -->
+									<ul style="list-style: none;">
+									<li class="icon solid fa-envelope">	
+									<!-- The text field -->	
+									<input type="text" value="zannialexandre245@gmail.com" id="myInput" style="text-align: center;">
+									<!-- The button used to copy the text -->
+									<button onclick="myFunction()" class="button primary">Copier</button></li>
+									</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/copy.js"></script>
+			<script src="assets/js/collapsible.js"></script>
+
+	</body>
+</html>
