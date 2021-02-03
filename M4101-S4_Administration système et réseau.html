@@ -52,14 +52,18 @@
 					<div id="main">
 						<div class="inner" align="justify">
 							<h1>Administration système et réseau</h1>
-							<span class="image main"><img src="images/Croquis_ArchitectureReseaux.jpg" alt="" /></span>
-							<h2>Définitions et concepts de base : (numéros associés aux figures) </h2>
+							<h2>Définitions et concepts de base : </h2>
 
 
 							<button class="collapsible">1. Commutation / VLAN</button>
 							<div class="contentC">
 							</br> 
-  							Soit le réseau Ethernet composé de deux commmutateurs Ethernet SW1 et SW2 reliés par des liens Ethernet. S est un serveur auxquels les stations (ordinateurs) A et B peuvent accéder (mais A et B ne communiquent pas entre eux ici). C est un autre ordinateur. Les numéros indiqués sont les numéros des ports des commutateurs. Si les stations A, B et C démarrent en même temps, la table de commutation des deux commutateurs est : </br> 
+							<span class="image main"><img src="images/Croquis_AdminSystRes.jpg" alt="" /></span>
+  							Soit un réseau composé de deux groupes (PCs 1, 2, 3 et PCs 4, 5, 6) de trois machines chacuns connectés (câbles droits) à un switch. Les switchs (S2 et S3) sont eux-mêmes reliés (câbles croisés) à un troisième switch S1. Chaque switch possède huit cartes réseaux. On ne met pas encore en place les VLANs. La table de routage correspondante est la suivante (IPv4 Broadcast = passerelle réseau) : </br></br>  
+  							<span class="image main"><img src="images/Croquis_AdminSystRes2.jpg" alt="" /></span>
+  							La passerelle réseau est en /24 car /16 signifierait que l'on s'arrêterait au 3ème octet (10, 20 ou 30) : l'adressage (ping) marcherait alors entre toutes les machines car la partie machine serait ignorée (dernier octet). Ce n'est pas ce que l'on souhaite car les machines doivent pouvoir distinguables les unes des autres afin de pouvoir mettre en place des réseaux virtuels. </br></br> 
+
+  							On cherche maintenant à tester la connectivité entre les machines :  
 							<ul>
 								<li><u>SW1 :</u> </br> 
 								- Port 1 : Inscrit l'adresse MAC de A, soit @MAC_A. </br> 
