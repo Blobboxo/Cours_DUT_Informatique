@@ -88,14 +88,15 @@
   							On souhaite tester à nouveau la connectivité entre les machines :  
 							<ul>
 								<li><u>PC1 et PC2 :</u> Elle ne fonctionne <b>pas</b> car ces machines sont chacunes isolées sur leurs réseau privatif respectif (VLAN 10 et VLAN 20).</br></li> 
-								<li><u>PC1 et PC4 :</u> Elle ne fonctionne <b>pas</b> car bien que ces machines aient une VLAN identique (10), le réseau n'est plus à plat, il a segmenté par la mise en place des VLANs qui isole chacun des composants au sein de leurs sous-réseaux, avec le switch S1 qui fait office de barrière"tampon" intermédiaire.</br></li> 
+								<li><u>PC1 et PC4 :</u> Elle ne fonctionne <b>pas</b> car bien que ces machines aient une VLAN identique (10), le réseau n'est plus à plat, il a segmenté par la mise en place des VLANs qui isole chacun des composants au sein de leurs sous-réseaux respectifs, avec le switch S1 qui fait office de barrière"tampon" intermédiaire.</br></li> 
 								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Elle ne fonctionne <b>pas</b> car bien que ces machines aient un sous-réseau identique (10), leurs VLAN respectives sont différentes (10 et 20).</br></li> 
 							</ul>
 
 							<span class="image main"><img src="images/Croquis_AdminSystRes4.jpg" alt="" /></span>
 
-							On déplace le PC4 du switch S3 vers le port 4 libre du switch S2. On reteste la connectivité entre PC1 et PC4 :
-							  
+							On déplace le PC4 du switch S3 vers le port 4 libre du switch S2. On reteste la connectivité entre PC1 et PC4 :</br>
+							Celle-ci fonctionne car les deux machines sont sur le même sous-réseau (10) et ont la même VLAN (10).
+
 
 
 
