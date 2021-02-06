@@ -88,17 +88,17 @@
   							On souhaite tester à nouveau la connectivité entre les machines :  
 							<ul>
 								<li><u>PC1 et PC2 :</u> Elle ne fonctionne <b>pas</b> car ces machines sont chacunes isolées sur leurs réseau privatif respectif (VLAN 10 et VLAN 20).</br></li> 
-								<li><u>PC1 et PC4 :</u> Elle ne fonctionne <b>pas</b> car bien que ces machines aient une VLAN identique (10), le réseau n'est plus à plat; il est segmenté par la mise en place des VLANs qui isole chacun des composants au sein de leurs sous-réseaux respectifs, avec le switch S1 qui fait office de barrière"tampon" intermédiaire.</br></li> 
+								<li><u>PC1 et PC4 :</u> Elle ne fonctionne <b>pas</b> car bien que ces machines aient une VLAN identique (10), il y a une discontinuité des Trunk et il ne peut peut donc pas y avoir de transport de données dans des VLAN isolés par leur sous-réseau respectif place des VLANs qui isole chacun des composants au sein de leur sous-réseau respectif.</br></li> 
 
-								<font color="red">
-								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Elle fonctionne car ces machines sont sur le même réseau, ont un sous-réseau identique (10) et ce changement de sous-réseau entraîne un changement du VLAN (20->10).</br></li> 
+								
+								<li><u>PC1 et PC2</u> (adresse IP 172.17.10.22/24 donnée à PC2) : Elle ne fonctionne <b>pas</b> car bien que ces machines soient sur un même sous-réseau (10), leurs VLANs sont différentes (étanchéité VLANs).</br></li> 
 							</ul>
 
 							<span class="image main"><img src="images/Croquis_AdminSystRes4.jpg" alt="" /></span>
 
 							On déplace le PC4 du switch S3 vers le port 4 libre du switch S2. On reteste la connectivité entre PC1 et PC4 :</br>
 							Celle-ci fonctionne car les deux machines sont sur le même sous-réseau (10) et ont la même VLAN (10).</br></br>
-						</font>
+						
 
 							On va maintenant configurer les ports 1 et 2 des switchs S1, S2 et S3 pour être des ports de Trunk 802.IQ transportant les VLANs 10, 20 et 30. On écrit dans le fichier de configuration des trois switchs pour leurs ports 1 et 2. C'est la même configuration que pour les ports 3 à 8 avec en plus les commandes de Trunk : 
 							<ul>
@@ -131,7 +131,7 @@
 							On remet le PC4 à sa place initiale connecté au port 3 du switch S3. On teste la connectivité entre les machines :  
 							<ul>
 								<li><u>PC1 et PC4 :</u> Elle fonctionne car bien que les machines soient séparés par le switch S1, elles peuvent communiquer grâce à la mise en place des trunks. Les trunks font office d'interface réseau virtuel qui relie </br></li> 
-								<font color="red">
+								
 								<li><u>PC1 et PC2 :</u> Elle ne fonctionne <b>pas</b> car PC1 et PC2 n'ont pas la même VLAN (10 et 20)). Pour qu'ils puissent communiquer, il faut configurer un routeur (RX) avec trois passerelles par défaut, une pour chaque VLAN et donc 3 cartes réseaux (eth0, eth1 et eth2) pour chaque VLAN (10, 20 et 30) : </br>
 								- eth0 doit être branché sur le port 3 ou 4 (VLAN 10)</br>
 								- eth1 doit être branché sur le port 5 ou 6 (VLAN 20)</br>
@@ -144,7 +144,7 @@
 								<li><u>eth1 :</u> 172.17.10.1/24 </br></li> 
 								<li><u>eth2 :</u> 172.17.10.1/24 </br></li> 								
 							</ul>		
-							</font>
+							
 
 							<span class="image main"><img src="images/Croquis_AdminSystRes5.jpg" alt="" /></span>							
 
