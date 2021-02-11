@@ -151,336 +151,51 @@
 							Pour démarrer le routeur il faudra ensuite activer le routage IP via la commande suivante (ip_forwarding) dans le fichier rc.local du routeur : </br>
 							<b>echo 1 > /proc/sys/net/ip_forward</b>
 
-
-
-
-
 							</div>
 
 
 
-							<!--
-							<button class="collapsible">2. ?</button>
+
+							<button class="collapsible">2. Mise en oeuvre d'un serveur DHCP</button>
 							<div class="contentC">
-  							</br><div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Classe d'adresse IP</th>
-													<th>Champs de valeurs publiques</th>
-													<th>Champs de valeurs privées</th>
-													<th>Masque de sous-réseau par défaut</th>
-													<th>Notation CIDR (<strong>*</strong>)</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><b>Classe A<b></td>
-													<td><b>1.X.X.X -> .126.X.X.X</font><b></td>
-													<td><b>10.0.0.0 -> 10.255.255.255<b></td>
-													<td><b>255.0.0.0<b></td>
-													<td><b>/8<b></td>
+							</br> 
+							<span class="image main"><img src="images/Croquis_AdminSystRes6.jpg" alt="" /></span>
+  							Soit un réseau composé des machines A, B, C, D et S reliées à des switchs S0 (A et B), S1 (C et D) et S2 (S). Chaque switch est relié à un ou deux routeurs, tel que R1 est relié à S0 et S1, R2 à S1 et S2, et RX à S2.  Le routeur RX est relié à une Gateway G1. Le routage IP a déjà été configuré tel que spécifié sur le schéma et dans la fenêtre des interfaces (équivalent du fichier de configuration /etc/rc.local avec le logiciel de simulation Marionnet). On n'assigne aucune adresse IP aux machines B et D (clientes) car ce sera le serveur DHCP (A et C) qui affectera leurs adresses respectives, tel que A->B et C->D. </br></br>  
+  							<span class="image main"><img src="images/Croquis_AdminSystRes7.jpg" alt="" /></span>
 
-												</tr>
-												<tr>
-													<td><b>Classe B<b></td>
-													<td><b>128.X.X.X -> 191.X.X.X</font><b></td>
-													<td><b>172.16.0.0 -> 172.31.255.255<b></td>
-													<td><b>255.255.0.0<b></td>
-													<td><b>/16<b></td>
-
-												</tr>
-												<tr>
-													<td><b>Classe C<b></td>
-													<td><b>192.X.X.X -> 223.X.X.X<b></td>
-													<td><b>192.168.0.0 -> 192.168.255.255<b></td>
-													<td><b>255.255.255.0<b></td>
-													<td><b>/24<b></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<strong>*</strong> Nombre adresses IPv4 disponibles pour les hôtes du réseau.
-									</br>
-									</br>
-									</br>
-
-
-							 Soit l'adresse IP 192.168.0.0 (classe C). Une adresse IP est codée sur quatre octets, chacun codé de 0 à 255. Pour calculer le nombre d'adresses locales possibles, il faut utiliser la formule suivante : "2^n - 2^1" avec 2^1 qui est l'octet réservé à la machine (adresse broadcast + sous-réseau). </br> 
-							==> Ici ce sera 2^8-2^1=254 adresses disponibles car pour quatre octets d'adresse on aura la décomposition suivante en codage binaire : 2^8.2^4.2^2.2^1. Il s'agit du nombre de combinaisons diponibles pour les adresses machines. </br> 
-							(Rappel : Les octets se calculent en binaire, donc 2^n avec n qui reprend la valeur résultante en binaire de l'octet précédent).</br></br> 
+  							On cherche maintenant à tester la connectivité :  
 							<ul>
-								<li><u>Adresse en binaire :</u> </br> Elle se décompose ainsi sur le <strong>premier</strong> octet (voir pour le détail : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.1</a>) : </br>
-							[ 1 , 1  ][  0,    0,   0,   0,   0,   0] </br>
-							soit : </br>
-							[2^8, 2^7][2^6, 2^5, 2^4, 2^3, 2^2, 2^1] </br>
-							==>[1,1]=2^7+2^6=192 : C'est la partie adresse machine de l'adresse IP. Cette valeur remplacera le "0" du masque de sous-réseau par défaut. </br>
-									</br>
-
-									</li>
-								<li><u>Masque :</u> L'adresse IP est de classe C. On sait que le masque réseau de cette classe est  255.255.255.0. Il y aura donc un octet 
-						  	(partiellement) disponible dont il faudra remplacer la valeur par 192 (valeur octet adressage machine) pour connaître la valeur du masque de <strong>cette</strong> adresse IP (et non pas de sa classe), soit : 255.255.255.192. Parmi les quatre octets, les trois premiers (bits de machine) sont remplis (255) de 8 bits chacun (un octet = 8 bits), tandis que le dernier (bit de sous-réseau) a 2 bits sur 8  disponibles. Pourquoi 2 bits ?  Pour la valeur 192, il faut en écriture binaire mettre un 1 à 128 et à 164. Le numéro du masque (/26) se trouve en comptant le nombre de 1 (bits significatifs) en écriture binaire de l'adresse 255.255.255.192, tel que 255=8 bits (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.2</a>), d'où 8*3=24 bits + 2 bits (192=2 bits en écriture binaire) (voir : <a href="Adresse IP et masque de sous-réseau.ods">Exemple 1.3</a>).</br>
-										</br>
-
-										</li>
-							<li><u>Sous-réseaux :</u> On pourra en déployer jusqu'à <strong>quatre</strong>, car pour 2 emplacements de valeurs possibles  ([1,1]) sur la partie adressage machine il y a 2^2=<strong>4</strong> possibilités (avec formule 2^n et le chiffre deux représentant les possibilités du binaire : 0 et 1). Ils se décomposent ainsi : </br> </br> 
-
-								</li>
+								<li><u>A et R1 :</u> Réussi car A a une adresse IP et R1 (côté eth0) peut communiquer avec la Gateway.</br></li> 
+								<li><u>B et R1 :</u> Ne fonctionne <b>pas</b> ('Network is unreachable') car B n'a pas d'adresse IP.</br></li> 
+								<li><u>C et R1 :</u> Réussi car C a une adresse IP et R1 (côté eth0) peut communiquer avec la Gateway.</br></li> 
+								<li><u>C et R2 :</u> Réussi car C a une adresse IP et R1 (côté eth1) peut communiquer avec la Gateway.</br></li> 			
+								<li><u>D et R1 :</u> Ne fonctionne <b>pas</b> ('Network is unreachable') car D n'a pas d'adresse IP.</br></li> 
+								<li><u>D et R2 :</u> Ne fonctionne <b>pas</b> ('Network is unreachable') car D n'a pas d'adresse IP.</br></li>	
+								<li><u>S et R2 :</u> Réussi car S a une adresse IP et R2 (côté eth1) peut communiquer avec la Gateway.</br></li> 
+								<li><u>S et RX :</u> Réussi car S a une adresse IP et RX (côté eth0) peut communiquer avec la Gateway.</br></li> 			
 							</ul>
 
-							<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Sous-réseau</th>
-													<th>Bornes <strong>*</strong></th>
-													<th>Masque</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><b>[ 0 , 0 ] : /<b></td>
-													<td><b>.1 -> .62 broadcast 63<b></td>
-													<td><b>/26<b></td>
-												</tr>
-												<tr>
-													<td><b>[ 0 , 1 ] : 64<b></td>
-													<td><b>.65 -> .126 broadcast 127<b></td>
-													<td><b>/26<b></td>
-												</tr>
-												<tr>
-													<td><b>[ 1 , 0 ] : 128<b></td>
-													<td><b>.129 -> .190 broadcast 191<b></td>
-													<td><b>/26<b></td>
-												</tr>
-												<tr>
-													<td><b>[ 1 , 1 ] : 192<b></td>
-													<td><b>.193 -> .254 broadcast 255<b></td>
-													<td><b>/26<b></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-							<strong>*</strong> Plages d'adresses machines qui servent à adresser les sous-réseaux
-							</br>
-							</br>
-
-							</br> <b>Adressage IP</b> :  </br></br>  
-							<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Adresse IP Hôte</th>
-													<th>Classe d'adresse</th>
-													<th><font color="red"> Adresse Réseau </font></th>
-													<th><font color="red"> Adresse Broadcast Réseau</font></th>
-													<th><font color="red"> Masque de sous-réseau</font></th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><b>216.14.55.137<b></td>
-													<td><b>C (publique)<b></td>
-													<td><b>216.14.55.<font color="red">0</font><b></td>
-													<td><b>216.14.55.<font color="red">255</font><b></td>
-													<td><b>255.255.255.<font color="red">0</font><b></td>
-												</tr>
-												<tr>
-													<td><b>123.1.1.15<b></td>
-													<td><b>A (publique)<b></td>
-													<td><b>123.<font color="red">0.0.0</font><b></td>
-													<td><b>123.<font color="red">255.255.255</font><b></td>
-													<td><b>255.<font color="red">0.0.0</font><b></td>
-												</tr>
-												<tr>
-													<td><b>175.12.239.244<b></td>
-													<td><b>B (publique)<b></td>
-													<td><b>175.12.<font color="red">0.0</font><b></td>
-													<td><b>175.12.<font color="red">255.255</font><b></td>
-													<td><b>255.255.<font color="red">0.0</font><b></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-
+							On souhaite maintenant ajouter des commandes au fichier de configuration /etc/dhcp/dhcpd.conf des machines A et C. Pour celà, on saisit la commande <b>[choixEditeur] /etc/dhcp/dhcpd.conf</b> dans le terminal de chaque machine avec [choixEditeur] qui peut être <b>vi</b> ou <b>nano</b>. Une fois dans le fichier de configuration, on ajoutera à la fin du fichier ces commandes à la machine A :</br></br> 
+  							<span class="image main"><img src="images/Croquis_AdminSystRes8.jpg" alt="" /></span>
+						    De même pour la machine C :</br></br>
+  							<span class="image main"><img src="images/Croquis_AdminSystRes9.jpg" alt="" /></span>
+							La syntaxe ligne par ligne de ces commandes est la suivante : 
 							<ul>
-								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
-								- Adresse Réseau : Croiser adresse IP Hôte et Masque de sous-réseau de la classe correspondante. Les "0" du masque remplacent alors les chiffres de l'adresse IP Hôte. </br> 
-							    - Adresse Broadcast Réseau : Les 0 sont remplacés par des 255. </br> 
-								- Masque de sous-réseau : Inverser le 255->0 et les autres chiffres en 255. </br> 
-							    </li>
+								<li><u>subnet 192.168.X.0 :</u> Le 'X' doit être remplacé par le numéro de sous-réseau correspondant (10 pour A et 20 pour D).</br></li>
+								<li><u>option routers 192.168.X.Y :</u>Doit être remplacé par l'adresse IPv4 correspondante (192.168.10.11 pour A et 192.168.20.2 pour D)</br></li> 
+								<li><u>range 192.168.X.Y 192.168.X.Z :</u> Le 'X' doit être remplacé par le numéro de sous-réseau correspondant (10 pour A et 20 pour D). Le 'Y' correspond à la première portée IP, et 'Z' à la seconde (peut prendre un intervalle environ égal à 10 par exemple). </br></li> 
 							</ul>
 
-							</br>  
-							<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Masque de sous-réseau (classe C)</th>
-													<th>Nombre de sous-réseaux</th>
-													<th>Nombre de machines (ou d'hôtes)</font></th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><b>255.255.255.0 (/24)<b></td>
-													<td><b>1 (2^0=1)<b></td>
-													<td><b>2^8-2=254</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.128 (/25)<b></td>
-													<td><b>2(0 ou 1) (2^1=2)<b></td>
-													<td><b>2^7-2=128</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.192 (/26)<b></td>
-													<td><b>4 (2^2=4)<b></td>
-													<td><b>2^6-2=62</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.224 (/27)<b></td>
-													<td><b>8 (2^3=8)<b></td>
-													<td><b>2^5-2=30</font><b></td>
-												</tr>
-												</tr>
-												<tr>
-													<td><b>255.255.255.240 (/28)<b></td>
-													<td><b>16 (2^4=16)<b></td>
-													<td><b>2^4-2=14</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.248 (/29)<b></td>
-													<td><b>32 (2^5=32)<b></td>
-													<td><b>2^3-2=6</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.252 (/30)<b></td>
-													<td><b>64 (2^6=64)<b></td>
-													<td><b>2^2-2=2</font><b></td>
-												</tr>
-												<tr>
-													<td><b>255.255.255.254 (/31)<b></td>
-													<td><b>128 (2^7=128)<b></td>
-													<td><b>2^1-2=0</font><b></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+							Le serveur DHCP peut être lancé via la commande <b>/etc/init.d/dhcpd start</b>.Pour permettre au serveur DHCP d'attribuer des adresses IP aux machines B et D, il faut modifier le fichier de configuration /etc/network/interfaces de ces machines.  Cela peut-être également fait en une commande qui force le broadcast DHCP sans ouvrir ce fichier. Ouvrir le terminal des machines B et D et saisir : <b>dhclient eth0</b>. L'attribution de l'adresse IP peut être vérifiée via la commande <b>ifconfig eth0</b>.
+  							<span class="image main"><img src="images/Croquis_AdminSystRes10.jpg" alt="" /></span>
+  							On ajoute une machine E sur le réseau 1 sur le même switch (S0) que les machines A et B : 
+  							<span class="image main"><img src="images/Croquis_AdminSystRes11.jpg" alt="" /></span>
+  							Les adresses IP ayant été attribués à l'ensemble des machines grâce au serveur DHCP. On peut tester les échanges de trames via le module wireshark qui peut être lancé dans le terminal de la machine désirée via la commande <b>wireshark</b>:   							
 
-							<ul>
-								<li><u>Remplissage des <b> <font color="red"> champs </font> </b> :</u> </br> 
-								- Masque de sous-réseau : D'après la formule du nombre de machines : 0 bits sont utilisés puis il reste 7 bits soit 2^7=128...
-								puis 2^6=64 et donc 128+64=192, puis 2^5=32 et donc 192+32=224... </br> 
-							    - Nombre de sous-réseaux : 0 bits sont utilisés donc 2^0, puis 1 bit est utilisé donc 2^1=2... </br> 
-								- Nombre de machines : Utilise la formule 2^(32-n)-2^1 avec n=CIDR=/24=nombre bits significatifs soit 2^(32-24)-2=2^8-2=254 (plus simplement 8 bits disponibles sur l'octet d'adressage machine), puis 7 bits disponibles pour 1 bit utilisé... </br>
-							    </li>
-
-							</br>
-							<p>Télécharger : <a href="Adresse IP et masque de sous-réseau.ods">Adresse IP et masque de sous-réseau.ods</a></br>
 							</div>
-						-->
-
-							<!--
-							<button class="collapsible">3. Routage IP</button>
-							<div class="contentC">
-
-							</br>
-
-							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
-
-							 Soit le réseau Ethernet composé de plusieurs sous-réseaux (10, 20 et 30), auxquels appartiennent plusieurs machines (10 : A et B, 20 : C et D, 30 : S). S0, S1 et S2 sont des switchs. R1, R2 et Rx sont des routeurs. Enfin G1 est la Gateway, qui est connectée à Internet. On souhaite configurer le routage de ce réseau Ethernet. La configuration des éléments de ce réseau sous Linux se fait en plusieurs étapes. Ces commandes doivent être écrites dans le fichier /etc/rc.local :</br></br>
-
-							<b>Étape 1 :</b> Réaliser le plan d'adressage de chaque machine (une carte réseau = 1 côté à brancher = 1 fil, c'est eth0) :</br>
-							<b><i>if config eth0 [adresseSousRéseauMachine+<font color="red">numéroBranchement</font>] </i></b></br>
-							ex : - Pour la machine A, ce sera : <i>if config eth0 192.168.10.<b><font color="red">2</font></b>/24</i></br>
-							- Pour la machine C, ce sera : <i>if config eth0 192.168.20.<b><font color="red">3</font></b>/24</i></br></br>
-
-							Réaliser le plan d'adressage de chaque routeur (deux cartes réseaux = 2 côtés à brancher = 2 fils, c'est eth0 et eth1) :</br>
-							<b><i>if config eth0 [adresseSousRéseauCôtéEth0+<font color="red">numéroBranchement</font>] </i></b></br>
-							<b><i>if config eth1 [adresseSousRéseauCôtéEth1+<font color="red">numéroBranchement</font>] </i></b></br>
-							ex : - Pour le routeur R1, ce sera : </br>
-							<i>if config eth0 192.168.10.<b><font color="red">1</font></b>/24</i></br>
-							<i>if config eth1 192.168.20.<b><font color="red">1</font></b>/24</i></br></br>
-							- Pour le routeur Rx, ce sera : </br>
-							<i>if config eth0 192.168.30.<b><font color="red">1</font></b>/24</i></br>
-							<i>if config eth1 192.168.2.<b><font color="red">1</font></b>/24</i></br></br>
-
-							Réaliser le plan d'adressage du Gateway :</br>
-							<i>if config eth0 192.168.2.<b><font color="red">2</font></b>/24</i></br></br></br>
-
-							<b>Étape 2 :</b> Ajout des chemins d'accès via la syntaxe "route add", suivi d'un des trois suffixes suivants : 
-							<ul>
-								<li>
-									<b>host </b> : Vers une machine
-							    </li>
-							    <li>
-							    	<b>-net </b> : Vers un sous-réseau (tous les embranchements les plus proches hors du point de sortie commun obtenu via "default gw").
-							    </li>
-							    <li>
-							    	<b>default gw </b> : Vers tous les réseaux (point de sortie commun des "-net", vers Internet. Il y a toujours une ligne, ni plus ni moins, par élément d'un réseau).
-							    </li>
-							</ul>
-
-							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
-
-							Configurer le routage IP de chaque machine :</br>
-							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauMachine+<font color="red">n°ExtérieurAuSousRéseauCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
-							[...]</br>
-							<b><i>route add default gw [adresseSousRéseauMachine+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
-							ex : - Pour la machine C (même chose pour D), ce sera : </br>
-							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
-							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
-							- Pour la machine S, ce sera : </br>
-							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
-							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
-							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
-
-							<span class="image main"><img src="images/Croquis_ArchitectureReseaux2.jpg" alt="" /></span>
-
-							Configurer le routage IP de chaque routeur :</br>
-							<b><i>route add -net [adresseSousRéseauPlusEloignéInternet] gw [adresseSousRéseauPlusProcheRouteur+<font color="red">n°SousRéseauPlusProcheRouteurCôtéSousRéseauPlusEloignéeInternet</font>]  </i></b></br>
-							[...]</br>
-							<b><i>route add default gw [adresseSousRéseauCôtéInternet+<font color="red">n°CôtéInternet</font>] </i></b></br></br>
-							ex : - Pour le routeur R1, ce sera : </br>
-							<i>route add default gw 192.168.20.<b><font color="red">254</font></b></i></br></br>
-							- Pour le routeur R2, ce sera : </br>
-							<i>route add -net 192.168.10.0/24 gw 192.168.20.<b><font color="red">1</font></b></i></br>
-							<i>route add default gw 192.168.30.<b><font color="red">1</font></b> </i></br></br>
-							- Pour le routeur Rx, ce sera : </br>
-							<i>route add -net 192.168.10.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
-							<i>route add -net 192.168.20.0/24 gw 192.168.30.<b><font color="red">254</font></b></i></br>
-							<i>route add default gw 192.168.2.<b><font color="red">2</font></b> </i></br></br>
 
 
-						</br> <b>Tester la communication entre les machines</b> :  </br></br>  
 
-							<ul>
-								<li>
-									Il faut d'abord vérifier que l'adressage a été fait correctement pour chacune des machines: <b><i>ifconfig eth[numeroPort]</i></b></br>
-									ex : <i>ifconfig eth0</i> (La valeur de "inet addr:" doit être différente)
-							    </li>
-							    <li>
-							    	Pour tester la communication, il faut saisir la commande suivante depuis une machine en l'adressant à une autre machine :</br>
-									<b><i>ping -c[nombrePaquetsAenvoyer] [adresseAinterroger]</i></b></br>
-									ex : <i>ping -c1 192.168.10.2</i> (envoi d'un ping vers la machine A)</br></br>
-									Si les deux machines peuvent communiquer : la console indique une réponse avec autant de paquets qu'il en a été envoyé.
-							    </li>
-							</ul></p>
-							</div>
-						-->
-
-							<!--
-							</br>
-							<b> Sitographie utile : </b>
-							</br></br>
-							- <a href="https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP/Adressage_IP_v4">Réseaux TCP/IP/Adressage IP v4</a> </br> 
-							- <a href="https://www.frameip.com/masques-de-sous-reseau/">Masque de sous-réseau IP</a> </br> 
-							- <a href="https://www.faidherbe.org/tutoriel/ip.htm">Protocole  I.P. : réseaux et sous-réseaux  (locaux)</a> </br> 
-							- <a href="https://www.frameip.com/entete-ethernet/">Entête Ethernet</a> </br> 
-							- <a href="http://www.gatoux.com/index.php/le-datagramme-ip/">Datagramme IP</a> </br> 
-							- <a href="http://www.gatoux.com/index.php/ladressage-ip/">Adressage IP</a> </br> 
-							- <a href="http://www.gatoux.com/index.php/le-routage/">Routage</a> </br> 
-							-->
 							</div>
 							</div>
 						
